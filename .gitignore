@@ -1,0 +1,17 @@
+# Ignore node_modules directory
+/node_modules
+
+# Ignore build artifacts and files
+/build
+/dist
+/coverage
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore npm/yarn lock files
+package-lock.json
+yarn.lock
+
+.idea/
