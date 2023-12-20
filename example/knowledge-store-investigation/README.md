@@ -381,7 +381,48 @@ The object we will add is:
   "lessonsLearned": "Enhanced endpoint security measures."
 }
 ```
-This will allow an application utilizing investigations to use this object as a default for malware investigations.
+Paste the entirety of this script into your bash prompt, from the `knowledge-store-investigation` folder. It will download
+and write `objects/malwareInvestigationDefaults.json` that has been staged at `https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/example/knowledge-store-investigation/malwareInvestigationDefaults.json``
+
+```shell
+#!/bin/bash
+
+# Check if SOLUTION_PREFIX is set
+if [ -z "$SOLUTION_PREFIX" ]; then
+  echo "Error: SOLUTION_PREFIX environment variable is not set."
+  exit 1
+fi
+
+# Define the expected folder name
+expected_folder="knowledge-store-investigation"
+
+# Verify the current directory
+if [ "$(basename "$(pwd)")" != "$expected_folder" ]; then
+  echo "Error: You are not in the '$expected_folder' folder."
+  exit 1
+fi
+
+# Define the destination directory
+destination_dir="$SOLUTION_PREFIX-example-ks-investigation/objects"
+
+# Create the destination directory if it doesn't exist
+mkdir -p "$destination_dir"
+
+# Download the JSON object and write it to the destination
+curl -o "$destination_dir/malwareInvestigationDefault.json" \
+  "https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/example/knowledge-store-investigation/malwareInvestigationDefault.json"
+
+# Check if the download was successful
+if [ $? -eq 0 ]; then
+  echo "File 'malwareInvestigationDefault.json' downloaded and saved to '$destination_dir'."
+else
+  echo "Error: Failed to download the file."
+  exit 1
+fi
+
+# End of script
+
+```
 
 
 Now let's put together a fully qualified type name, with the `identifyingProperties` of an investigation to
