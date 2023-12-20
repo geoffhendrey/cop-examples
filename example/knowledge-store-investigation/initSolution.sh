@@ -9,7 +9,7 @@ if [ -z "$SOLUTION_PREFIX" ]; then
 fi
 
 # Define the destination directory for the manifest
-solutionDir="${SOLUTION_PREFIX}MalwareExample"
+solutionDir="${SOLUTION_PREFIX}malwareexample"
 
 # Create the destination directory if it doesn't exist
 mkdir -p "$solutionDir"

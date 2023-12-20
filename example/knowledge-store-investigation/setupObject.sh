@@ -21,7 +21,7 @@ fi
 source_file="./malwareInvestigationDefaults.json"
 
 # Define the destination directory
-destination_dir="${SOLUTION_PREFIX}MalwareExample/objects"
+destination_dir="${SOLUTION_PREFIX}malwareexample/objects"
 
 # Create the destination directory if it doesn't exist
 mkdir -p "$destination_dir"

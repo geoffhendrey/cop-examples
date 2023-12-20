@@ -13,7 +13,7 @@ You now have a solution manifest that looks like this, with `$SOLUTION_PREFIX` r
 ```json
 {
   "manifestVersion": "1.0.0",
-  "name": "$SOLUTION_PREFIX-example-ks-investigation",
+  "name": "$SOLUTION_PREFIXMalwareExample",
   "solutionVersion": "1.0.0",
   "dependencies": [],
   "description": "network intrusion investigation",
@@ -26,7 +26,7 @@ You now have a solution manifest that looks like this, with `$SOLUTION_PREFIX` r
   ],
   "objects":[
     {
-      "type": "$SOLUTION_PREFIX-example-ks-investigation:investigation",
+      "type": "$SOLUTION_PREFIXMalwareExample:investigation",
       "objectsFile": "objects/investigation.json"
     }
   ]
@@ -221,10 +221,10 @@ In the API call above, `extensibility:solution` is a fully qualifed type. We can
 in the platform is implemented as a System Solution called `extensibility` that has defined a Type
 called `solution`, in which it stores details about every solution that has been pushed to the platform.
 
-Recall that the name of your solution is `$SOLUTION_PREFIX-example-ks-investigation`. This
+Recall that the name of your solution is `$SOLUTION_PREFIXMalwareExample`. This
 means tht the fully qualifed name of your investigation Type is:
 ```
-$SOLUTION_PREFIX-example-ks-investigation:investigation`
+$SOLUTION_PREFIXMalwareExample:investigation`
 ```
 * `jsonSchema` - this is where we need to define our type's json document structure. As you can
 see from the JSON below, the json schema for the ingestigation contains numerous fields ranging from 
@@ -277,7 +277,7 @@ push.sh
 ```
 The script uses the `fsoc` command like this:
 ```shell
-fsoc solution push -d $SOLUTION_PREFIX-example-ks-investigation --wait --tag=dev
+fsoc solution push -d ${SOLUTION_PREFIX}MalewareExample --wait --tag=stable
 ```
 
 
