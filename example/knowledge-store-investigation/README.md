@@ -270,9 +270,14 @@ with the JSON schema for `investigation`
 }
 ```
 The next step is to push your solution to the platform. This assumes
-you already have familiarity with [fsoc](https://github.com/cisco-open/fsoc)
+you already have familiarity with [fsoc](https://github.com/cisco-open/fsoc). Run the
+`push.sh` script.
 ```shell
 push.sh
+```
+The script uses the `fsoc` command like this:
+```shell
+fsoc solution push -d $SOLUTION_PREFIX-example-ks-investigation --wait --tag=dev
 ```
 
 
