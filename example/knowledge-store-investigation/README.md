@@ -3,169 +3,50 @@ that contains a knowledge Type definiton for a network security investigation. O
 is created and pushed to the platform, we will learn how we can include investigation objects
 in solutions, as well as CRUD them with REST APIs.
 
-From a `bash` prompt set a SOLUTION_PREFIX environment variable. This will allow you to 
-use `fsoc` commands without overwriting the local folders of this example
+run the `initSolution.sh` script. It will copy `manifest.json` into a new solution folder prefixed with 
+your username
 
 ```shell
-SOLUTION_PREFIX=<your-initials-here>
+initSolution.sh
 ```
-
-use the fsoc command to initialize a solution in this folder:
-```shell
-fsoc solution init $SOLUTION_PREFIX-example-ks-investigation
-```
-`cd` into the solution folder that was just created
-```shell
-cd $SOLUTION_PREFIX-example-ks-investigation
-```
-A file called `manifest.json` was created.
-```shell
-cat manifest.json #dump the file to termimnal so you can read it
-```
-
-```shell
-{
-    "manifestVersion": "1.0.0",
-    "name": "<your-prefix>-example-ks-investigation",
-    "solutionVersion": "1.0.0",
-    "dependencies": [],
-    "description": "description of your solution",
-    "contact": "the email for this solution's point of contact",
-    "homepage": "the url for this solution's homepage",
-    "gitRepoUrl": "the url for the git repo holding your solution",
-    "readme": "the url for this solution's readme file"
-}
-```
-As you can see this is essentially a blank manifest. We will now run an 'fsoc'
-command to create a knowledge Type, and update the manifest
-```shell
-fsoc solution extend --add-knowledge=investigation
-```
-now `cat` your manifest and note that it has been augmented with a `types` array. This tells the knowledge store
-that your solution contains a type, and where to find it.
-```bash
-cat manifest.json
-```
+You now have a solution manifest that looks like this, with `$SOLUTION_PREFIX` replaced by your username:
 ```json
 {
-    "manifestVersion": "1.0.0",
-    "name": "gh-example-ks-investigation",
-    "solutionVersion": "1.0.0",
-    "dependencies": [],
-    "description": "description of your solution",
-    "contact": "the email for this solution's point of contact",
-    "homepage": "the url for this solution's homepage",
-    "gitRepoUrl": "the url for the git repo holding your solution",
-    "readme": "the url for this solution's readme file",
-    "types": [
-        "types/investigation.json"
-    ]
+  "manifestVersion": "1.0.0",
+  "name": "$SOLUTION_PREFIX-example-ks-investigation",
+  "solutionVersion": "1.0.0",
+  "dependencies": [],
+  "description": "network intrusion investigation",
+  "contact": "-",
+  "homepage": "-",
+  "gitRepoUrl": "-",
+  "readme": "-",
+  "types": [
+    "types/investigation.json"
+  ],
+  "objects":[
+    {
+      "type": "$SOLUTION_PREFIX-example-ks-investigation:investigation",
+      "objectsFile": "objects/investigation.json"
+    }
+  ]
 }
 ```
-In the manifest above note these lines which are the part that was added :
-```json
-    "types": [
-        "types/investigation.json"
-    ]
-```
-change directory into the `types` folder
+Now run `setupType.sh` to copy the type definition, `investigation.json` into the `types` folder of your new 
+solution.
 ```shell
-cd types
+setupTypes.sh
 ```
-...and `cat` the investigations type definition
+Next run `setupObject.sh` to copy `malwareInvestigationDefaults.json" into the 
+objects folder of your solution.
+```shell
+setupObject.sh
+```
+Let's look at the investigation Type definition. 
+
 ```shell
 cat investigation.json
 ```
-```json
-{
-    "name": "investigation",
-    "allowedLayers": [
-        "TENANT"
-    ],
-    "identifyingProperties": [
-        "/name"
-    ],
-    "secureProperties": [
-        "$.secret"
-    ],
-    "jsonSchema": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "additionalProperties": false,
-        "description": "",
-        "properties": {
-            "name": {
-                "description": "this is a sample attribute",
-                "type": "string"
-            },
-            "secret": {
-                "description": "this is a sample secret attribute",
-                "type": "string"
-            }
-        },
-        "required": [
-            "name"
-        ],
-        "title": "investigation knowledge type",
-        "type": "object"
-    }
-}
-```
-The knowledge type that has been created is just a skeleton. We are going to take that skeleton and customize 
-it to our needs. Let's go field by field, and then create a simple bash script to make all the changes so 
-you don't have to type them manually which can result in 'fat fingers'
-* `name` - the name field is fine. It is set to 'investigation'. When we push this solution, it means that tenants
-who subscribe to your solution (inlcuding you!) will be able to access a totally new knowledge type. You can 
-think of  a type as similar to a table in a traditional database
-* `allowedLayers` - The knowledge store allows `SOLUTION`, `TENANT`, and `USER` access. Objects placed in solution packages,
-  are replicated to all Cells in the COP. Default knowledge layering policies make your SOLUTION objects visible to TENANT
-  and USER principals in every cell. To illustrate how layering works, in this example we wish to include an object with
-  suitable defaults for network intrusion investigations.  However, we want tenant admin to be able to
-  customize investigation defaults which may have different requirements in different regions. For this
-  reason we set `allowdLayers` to `TENANT` in the investigation type definitoin, `investigation.json`.
-  However, we also want to allow USERs to create investigations within a tenant, and to see the tenant-specific
-  defaults that are applicable to, for example European Union. For this reason we add USER to the `allowedLayers`
-  ![Layering](https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/assets/knowledge%20replication.png)
-* `identifyingProperties` - When we store an actual investigation object, whether it is coming from a solution package
-as we will do, or a user or UI via an API call, the Knowledge Store must have a way to uniquely identify the
-object. `identifyingProperties` is a JSON Pointer that tells the system which field of an ingvestigation object
-can be used to uniquely identify it. We will be changing the identifyingProperties from `["/name"]` to `["/name", "/caseId"]`
-```json
-    "identifyingProperties": [
-        "/name", "caseId"
-    ]
-```
-Let's briefly discuss how the 
-Knowledge Store REST APIs leverage object _identity_. Consider that two solutions can both create a type called
-investigation. This clash is resolved by using _fully qualified_ id's. For example, try this command to list solutions
-in your cell:
-```shell
-fsoc solution list --verbose
-```
-you will see that one of the lines printed to the terminal is 
-```
-* Calling the observability platform API method=GET path=knowledge-store/v1/objects/extensibility:solution
-```
-This means the `fsoc` command is making a REST call to lisst all objects of with fully qualified type `extensibility:solution`
-```html
-https://<your-tenant-hostname>/knowledge-store/v1/objects/extensibility:solution
-```
-In the API call above, `extensibility:solution` is a fully qualifed type. We can infer that solution management
-in the platform is implemented as a System Solution called `extensibility` that has defined a Type
-called `solution`, in which it stores details about every solution that has been pushed to the platform.
-
-Recall that the name of your solution is `$SOLUTION_PREFIX-example-ks-investigation`. This
-means tht the fully qualifed name of your investigation Type is:
-```
-$SOLUTION_PREFIX-example-ks-investigation:investigation`
-```
-* `secureProperties` - To keep it simple we won't be storing any secrets like API keys in the investigation object
-therefore we will remove this field.
-* `jsonSchema` - this is where we need to define our type's json document structure. As you can
-see from the JSON below, the json schema for the ingestigation contains numerous fields ranging from 
-the identifying property (`caseId`) to `description`, `severity`, and `affectedSystems`
-
-Let's put it all together now. Replace the content of `investigation.json` with this file
-that brings together all the changes we discussed.
 ```json
 {
   "name": "investigation",
@@ -299,52 +180,59 @@ that brings together all the changes we discussed.
   }
 }
 ```
-Paste the entirety of this script into your bash prompt, from the `knowledge-store-investigation` folder. It will download
-and replace `investigation.json` with the content above that has been staged at `https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/example/knowledge-store-investigation/investigation.json`
-```shell
-#!/bin/bash
-
-# Check if SOLUTION_PREFIX is set
-if [ -z "$SOLUTION_PREFIX" ]; then
-  echo "Warning: SOLUTION_PREFIX environment variable is not set."
-  exit 1
-fi
-
-# Define the expected folder name
-expected_folder="knowledge-store-investigation"
-
-# Verify the current directory
-if [ "$(basename "$(pwd)")" != "$expected_folder" ]; then
-  echo "Error: You are not in the '$expected_folder' folder."
-  exit 1
-fi
-
-# Define the destination directory
-destination_dir="$SOLUTION_PREFIX-example-ks-investigation/types"
-
-# Create the destination directory if it doesn't exist
-mkdir -p "$destination_dir"
-
-# Download the JSON file and write it to the destination
-curl -o "$destination_dir/investigation.json" \
-  "https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/example/knowledge-store-investigation/investigation.json"
-
-# Check if the download was successful
-if [ $? -eq 0 ]; then
-  echo "File 'investigation.json' downloaded and saved to '$destination_dir'."
-else
-  echo "Error: Failed to download the file."
-  exit 1
-fi
-
-# End of script
-
+A Type declaration has these parts:
+* `name` - the name field is fine. It is set to 'investigation'. When we push this solution, it means that tenants
+who subscribe to your solution (inlcuding you!) will be able to access a totally new knowledge type. You can 
+think of  a type as similar to a table in a traditional database
+* `allowedLayers` - The knowledge store allows `SOLUTION`, `TENANT`, and `USER` access. Objects placed in solution packages,
+  are replicated to all Cells in the COP. Default knowledge layering policies make your SOLUTION objects visible to TENANT
+  and USER principals in every cell. To illustrate how layering works, in this example we wish to include an object with
+  suitable defaults for network intrusion investigations.  However, we want tenant admin to be able to
+  customize investigation defaults which may have different requirements in different regions. For this
+  reason we set `allowdLayers` to `TENANT` in the investigation type definitoin, `investigation.json`.
+  However, we also want to allow USERs to create investigations within a tenant, and to see the tenant-specific
+  defaults that are applicable to, for example European Union. For this reason we add USER to the `allowedLayers`
+  ![Layering](https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/assets/knowledge%20replication.png)
+* `identifyingProperties` - When we store an actual investigation object, whether it is coming from a solution package
+as we will do, or a user or UI via an API call, the Knowledge Store must have a way to uniquely identify the
+object. `identifyingProperties` is a JSON Pointer that tells the system which field of an ingvestigation object
+can be used to uniquely identify it. We will be changing the identifyingProperties from `["/name"]` to `["/name", "/caseId"]`
+```json
+    "identifyingProperties": [
+        "/name", "caseId"
+    ]
 ```
-Now that we have defined the `investigation` type, we can add a `SOLUTION`layer investigation to provide defaults for 
-various types of investigations. This means we will add an object to the solution that complies with the investigation schema.
-This is a common pattern - defining a type as well as one or more objects of the type.
+Let's briefly discuss how the 
+Knowledge Store REST APIs leverage object _identity_. Consider that two solutions can both create a type called
+investigation. This clash is resolved by using _fully qualified_ id's. For example, try this command to list solutions
+in your cell:
+```shell
+fsoc solution list --verbose
+```
+you will see that one of the lines printed to the terminal is 
+```
+* Calling the observability platform API method=GET path=knowledge-store/v1/objects/extensibility:solution
+```
+This means the `fsoc` command is making a REST call to list all objects of with fully qualified type `extensibility:solution`
+```html
+https://<your-tenant-hostname>/knowledge-store/v1/objects/extensibility:solution
+```
+In the API call above, `extensibility:solution` is a fully qualifed type. We can infer that solution management
+in the platform is implemented as a System Solution called `extensibility` that has defined a Type
+called `solution`, in which it stores details about every solution that has been pushed to the platform.
 
-The object we will add is:
+Recall that the name of your solution is `$SOLUTION_PREFIX-example-ks-investigation`. This
+means tht the fully qualifed name of your investigation Type is:
+```
+$SOLUTION_PREFIX-example-ks-investigation:investigation`
+```
+* `jsonSchema` - this is where we need to define our type's json document structure. As you can
+see from the JSON below, the json schema for the ingestigation contains numerous fields ranging from 
+the identifying property (`caseId`) to `description`, `severity`, and `affectedSystems`
+
+Let's now examine the  `malwareInvestigationDefaults.json` object. The first thing to note is that it complies
+with the JSON schema for `investigation`
+
 ```json
 {
   "name": "Malware Incident Report",
@@ -381,49 +269,11 @@ The object we will add is:
   "lessonsLearned": "Enhanced endpoint security measures."
 }
 ```
-Paste the entirety of this script into your bash prompt, from the `knowledge-store-investigation` folder. It will download
-and write `objects/malwareInvestigationDefaults.json` that has been staged at `https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/example/knowledge-store-investigation/malwareInvestigationDefaults.json``
-
+The next step is to push your solution to the platform. This assumes
+you already have familiarity with [fsoc](https://github.com/cisco-open/fsoc)
 ```shell
-#!/bin/bash
-
-# Check if SOLUTION_PREFIX is set
-if [ -z "$SOLUTION_PREFIX" ]; then
-  echo "Error: SOLUTION_PREFIX environment variable is not set."
-  exit 1
-fi
-
-# Define the expected folder name
-expected_folder="knowledge-store-investigation"
-
-# Verify the current directory
-if [ "$(basename "$(pwd)")" != "$expected_folder" ]; then
-  echo "Error: You are not in the '$expected_folder' folder."
-  exit 1
-fi
-
-# Define the destination directory
-destination_dir="$SOLUTION_PREFIX-example-ks-investigation/objects"
-
-# Create the destination directory if it doesn't exist
-mkdir -p "$destination_dir"
-
-# Download the JSON object and write it to the destination
-curl -o "$destination_dir/malwareInvestigationDefault.json" \
-  "https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/example/knowledge-store-investigation/malwareInvestigationDefault.json"
-
-# Check if the download was successful
-if [ $? -eq 0 ]; then
-  echo "File 'malwareInvestigationDefault.json' downloaded and saved to '$destination_dir'."
-else
-  echo "Error: Failed to download the file."
-  exit 1
-fi
-
-# End of script
-
+fsoc solution
 ```
-
 
 Now let's put together a fully qualified type name, with the `identifyingProperties` of an investigation to
 understand what the REST URL for a particular investigation looks like.

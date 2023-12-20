@@ -1,0 +1,20 @@
+{
+  "manifestVersion": "1.0.0",
+  "name": "$SOLUTION_PREFIX-example-ks-investigation",
+  "solutionVersion": "1.0.0",
+  "dependencies": [],
+  "description": "network intrusion investigation",
+  "contact": "-",
+  "homepage": "-",
+  "gitRepoUrl": "-",
+  "readme": "-",
+  "types": [
+    "types/investigation.json"
+  ],
+  "objects":[
+    {
+      "type": "$SOLUTION_PREFIX-example-ks-investigation:investigation",
+      "objectsFile": "objects/investigation.json"
+    }
+  ]
+}
