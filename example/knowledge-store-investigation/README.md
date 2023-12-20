@@ -298,9 +298,92 @@ that brings together all the changes we discussed.
     "required": ["name", "caseID", "investigators", "startTime", "description", "status"]
   }
 }
+```
+Paste the entirety of this script into your bash prompt, from the `knowledge-store-investigation` folder. It will download
+and replace `investigation.json` with the content above that has been staged at `https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/example/knowledge-store-investigation/investigation.json`
+```shell
+#!/bin/bash
 
+# Check if SOLUTION_PREFIX is set
+if [ -z "$SOLUTION_PREFIX" ]; then
+  echo "Warning: SOLUTION_PREFIX environment variable is not set."
+  exit 1
+fi
+
+# Define the expected folder name
+expected_folder="knowledge-store-investigation"
+
+# Verify the current directory
+if [ "$(basename "$(pwd)")" != "$expected_folder" ]; then
+  echo "Error: You are not in the '$expected_folder' folder."
+  exit 1
+fi
+
+# Define the destination directory
+destination_dir="$SOLUTION_PREFIX-example-ks-investigation/types"
+
+# Create the destination directory if it doesn't exist
+mkdir -p "$destination_dir"
+
+# Download the JSON file and write it to the destination
+curl -o "$destination_dir/investigation.json" \
+  "https://raw.githubusercontent.com/geoffhendrey/cop-examples/main/example/knowledge-store-investigation/investigation.json"
+
+# Check if the download was successful
+if [ $? -eq 0 ]; then
+  echo "File 'investigation.json' downloaded and saved to '$destination_dir'."
+else
+  echo "Error: Failed to download the file."
+  exit 1
+fi
+
+# End of script
 
 ```
+Now that we have defined the `investigation` type, we can add a `SOLUTION`layer investigation to provide defaults for 
+various types of investigations. This means we will add an object to the solution that complies with the investigation schema.
+This is a common pattern - defining a type as well as one or more objects of the type.
+
+The object we will add is:
+```json
+{
+  "name": "Malware Incident Report",
+  "caseID": "MAL2023123456",
+  "investigators": ["Security Team"],
+  "startTime": "2023-12-15T10:00:00Z",
+  "endTime": "2023-12-15T11:30:00Z",
+  "description": "Investigation of a suspected malware infection on a workstation.",
+  "severity": "high",
+  "intrusionType": "Malware",
+  "affectedSystems": ["Workstation-1"],
+  "attackVectors": ["Email attachment", "Drive-by download"],
+  "ipAddresses": {
+    "source": "192.168.1.50",
+    "target": "104.20.2.17"
+  },
+  "networkTrafficLogs": "Unusual network activity detected on the workstation.",
+  "incidentResponseActions": "Isolated the workstation from the network, initiated malware scan.",
+  "evidenceAndArtifacts": ["Malware executable", "Suspicious email"],
+  "recommendations": "Implement email filtering and endpoint protection measures.",
+  "status": "open",
+  "notes": "The affected workstation has been isolated and is undergoing analysis.",
+  "timestamps": {
+    "start": "2023-12-15T10:00:00Z",
+    "end": "2023-12-15T11:30:00Z"
+  },
+  "reporting": "Internal incident reporting",
+  "incidentClassification": "Malware Infection",
+  "legalAndCompliance": "Compliance with data protection regulations",
+  "affectedUsers": ["User-C"],
+  "evidencePreservation": "Evidence preserved according to security policy.",
+  "thirdPartyInvolvement": "Consulted with cybersecurity experts.",
+  "remediationActions": "Cleaned malware, implemented preventive measures.",
+  "lessonsLearned": "Enhanced endpoint security measures."
+}
+```
+This will allow an application utilizing investigations to use this object as a default for malware investigations.
+
+
 Now let's put together a fully qualified type name, with the `identifyingProperties` of an investigation to
 understand what the REST URL for a particular investigation looks like.
 ```html
