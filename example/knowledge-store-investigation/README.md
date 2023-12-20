@@ -3,13 +3,25 @@ that contains a knowledge Type definiton for a network security investigation. O
 is created and pushed to the platform, we will learn how we can include investigation objects
 in solutions, as well as CRUD them with REST APIs.
 
-run the `initSolution.sh` script. It will copy `manifest.json` into a new solution folder prefixed with 
+Make sure all the script have executable permission by running this command in the `knowledge-store-investigation`
+folder.
+```shell
+chmod u+x *.sh
+```
+
+run the `checkFSOC.sh`script to verify you have a recent version of the COP CLI
+```shell
+./checkFSOC.sh
+```
+
+run the `initSolution.sh`script. It will copy `manifest.json` into a new solution folder prefixed with 
 your username
 
 ```shell
-initSolution.sh
+./initSolution.sh
 ```
-You now have a solution manifest that looks like this, with `$SOLUTION_PREFIX` replaced by your username:
+Verify you have a folder whose name is `<your-username>malwareexample`
+You now have a solution manifest file `<your-username>malwareexample/manifest.json` that looks like this, with `$SOLUTION_PREFIX` replaced by your username:
 ```json
 {
   "manifestVersion": "1.0.0",
@@ -35,12 +47,12 @@ You now have a solution manifest that looks like this, with `$SOLUTION_PREFIX` r
 Now run `setupType.sh` to copy the type definition, `investigation.json` into the `types` folder of your new 
 solution.
 ```shell
-setupTypes.sh
+./setupType.sh
 ```
 Next run `setupObject.sh` to copy `malwareInvestigationDefaults.json" into the 
 objects folder of your solution.
 ```shell
-setupObject.sh
+./setupObject.sh
 ```
 Let's look at the investigation Type definition. 
 
@@ -269,11 +281,16 @@ with the JSON schema for `investigation`
   "lessonsLearned": "Enhanced endpoint security measures."
 }
 ```
+Now run `validate.sh` to check your solution for errors:
+```shell
+./validate.sh
+```
+
 The next step is to push your solution to the platform. This assumes
 you already have familiarity with [fsoc](https://github.com/cisco-open/fsoc). Run the
 `push.sh` script.
 ```shell
-push.sh
+./push.sh
 ```
 The script uses the `fsoc` command like this:
 ```shell

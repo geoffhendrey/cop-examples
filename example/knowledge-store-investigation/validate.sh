@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./setSolutionPrefix.sh
 
@@ -7,4 +7,4 @@ if [ -z "$SOLUTION_PREFIX" ]; then
   echo "Warning: SOLUTION_PREFIX environment variable is not set."
   exit 1
 fi
-fsoc solution push --directory ${SOLUTION_PREFIX}malwareexample --wait --tag=stable
+fsoc solution validate --directory ${SOLUTION_PREFIX}malwareexample --tag stable -v
