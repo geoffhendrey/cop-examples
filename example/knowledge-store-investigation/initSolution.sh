@@ -9,13 +9,13 @@ if [ -z "$SOLUTION_PREFIX" ]; then
 fi
 
 # Define the destination directory for the manifest
-manifest_dir="$SOLUTION_PREFIX-example-ks-investigation"
+solutionDir="${SOLUTION_PREFIX}MalwareExample"
 
 # Create the destination directory if it doesn't exist
-mkdir -p "$manifest_dir"
+mkdir -p "$solutionDir"
 
 # Load the existing manifest JSON content
-manifest_file="$manifest_dir/manifest.json"
+manifest_file="./manifest.json"
 if [ -f "$manifest_file" ]; then
   manifest_content=$(cat "$manifest_file")
 else
@@ -27,11 +27,11 @@ fi
 manifest_content=$(echo "$manifest_content" | sed "s/\$SOLUTION_PREFIX/$SOLUTION_PREFIX/g")
 
 # Write the updated manifest JSON content back to the file
-echo "$manifest_content" > "$manifest_file"
+echo "$manifest_content" > "$solutionDir/$manifest_file"
 
 # Check if the write was successful
 if [ $? -eq 0 ]; then
-  echo "Manifest file 'manifest.json' updated in '$manifest_dir'."
+  echo "Manifest file 'manifest.json' updated in '$solutionDir'."
 else
   echo "Error: Failed to update the manifest file."
 fi

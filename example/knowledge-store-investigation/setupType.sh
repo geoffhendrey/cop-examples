@@ -21,7 +21,7 @@ fi
 source_file="./investigation.json"
 
 # Define the destination directory
-destination_dir="$SOLUTION_PREFIX-example-ks-investigation/types"
+destination_dir="${SOLUTION_PREFIX}MalwareExample/types"
 
 # Create the destination directory if it doesn't exist
 mkdir -p "$destination_dir"

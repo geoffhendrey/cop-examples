@@ -1,6 +1,6 @@
 {
   "manifestVersion": "1.0.0",
-  "name": "$SOLUTION_PREFIX-example-ks-investigation",
+  "name": "$SOLUTION_PREFIXMalwareExample",
   "solutionVersion": "1.0.0",
   "dependencies": [],
   "description": "network intrusion investigation",
@@ -13,7 +13,7 @@
   ],
   "objects":[
     {
-      "type": "$SOLUTION_PREFIX-example-ks-investigation:investigation",
+      "type": "$SOLUTION_PREFIXMalwareExample:investigation",
       "objectsFile": "objects/investigation.json"
     }
   ]
