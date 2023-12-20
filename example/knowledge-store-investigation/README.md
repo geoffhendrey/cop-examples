@@ -272,14 +272,10 @@ with the JSON schema for `investigation`
 The next step is to push your solution to the platform. This assumes
 you already have familiarity with [fsoc](https://github.com/cisco-open/fsoc)
 ```shell
-fsoc solution
+push.sh
 ```
 
-Now let's put together a fully qualified type name, with the `identifyingProperties` of an investigation to
-understand what the REST URL for a particular investigation looks like.
-```html
-https://<your-tenant-hostname>/knowledge-store/v1/objects/$SOLUTION_PREFIX-example-ks-investigation:investigation/$SOLUTION_PREFIX-example-ks-investigation:name=
-```
+
 
 
 
