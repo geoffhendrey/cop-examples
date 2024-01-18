@@ -332,10 +332,33 @@ subscribe to your solution.
 GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc solution subscribe ghendreymalwareexample
 Tenant 7b8b00cf-5fd4-47bd-adc2-f22c78675194 has successfully subscribed to solution ghendreymalwareexample
 ```
-Now you will be allowed to see the assets of your solution:
+Try to query the Type definition for investigation:
 ```shell
 fsoc knowledge get-type --type "ghendreymalwareexample:investigation" -v
 ```
+You will receive 403 forbidden:
+```shell
+GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc knowledge get-type --type "ghendreymalwareexample:investigation" -v
+   • fsoc version              BuildHost=fv-az1017-209 BuildTimestamp=1702089739 GitBranch=v0.57.0 GitDirty=false GitHash=a4a651c GitTimestamp=1702088134 IsDev=false Platform=darwin-arm64 Version=0.57.0 VersionMajor=0 VersionMeta= VersionMinor=57 VersionPatch=0 VersionPrerelease=
+   • fsoc command line         arguments=[] command=get-type flags=[type="ghendreymalwareexample:investigation" verbose="true"]
+   • fsoc context              config_file=/Users/ghendrey/.fsoc.yaml custom_configs=[] existing=true profile=default
+   • Fetching type...
+   • Calling the observability platform API method=GET path=knowledge-store/v1/types/ghendreymalwareexample:investigation
+   • Using context             context=default tenant=7b8b00cf-5fd4-47bd-adc2-f22c78675194 url=https://optimize-ignite-test.saas.appd-test.com
+   • Current token is no longer valid; trying to refresh
+   • Login is forced in order to get a valid access token
+   • Starting OAuth authentication flow
+   • Trying to get a new access token using the refresh token
+   • Access token refreshed successfully
+   • Updated context           profile=default
+   • Retrying the request with the refreshed token
+   ⨯ Platform API call failed  status=403
+   ⨯ Platform API call failed: error response:
+```
+To allow querying of the Type definition you must include a permission object in your solution
+(WIP) next step is to include permission object
+
+
 
 
 
