@@ -294,8 +294,49 @@ you already have familiarity with [fsoc](https://github.com/cisco-open/fsoc). Ru
 ```
 The script uses the `fsoc` command like this:
 ```shell
-fsoc solution push -d ${SOLUTION_PREFIX}MalewareExample --wait --tag=stable
+GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc solution push --stable
+Creating solution zip: "/var/folders/_h/gk53dw4j4vx9k0zjtpy_k3wm0000gn/T/ghendreymalwareexample3885208973.zip"
+Deploying solution ghendreymalwareexample version 1.0.0 with tag stable
+   • Current token is no longer valid; trying to refresh
+Successfully uploaded solution ghendreymalwareexample version 1.0.0 with tag stable.
 ```
+After pushing your solution, do a 'solution list' to verify
+```shell
+GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc solution list | grep malware
+ghendreymalwareexample                  stable  false     false         []
+```
+
+The next thing you will be tempted to do is look at the investigation type that you just installed. But as you will
+see below, if you try to get the type you just installed, you will get a 403 forbidden:
+```shell
+GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc knowledge get-type --type "ghendreymalwareexample:investigation" -v
+   • fsoc version              BuildHost=fv-az1017-209 BuildTimestamp=1702089739 GitBranch=v0.57.0 GitDirty=false GitHash=a4a651c GitTimestamp=1702088134 IsDev=false Platform=darwin-arm64 Version=0.57.0 VersionMajor=0 VersionMeta= VersionMinor=57 VersionPatch=0 VersionPrerelease=
+   • fsoc command line         arguments=[] command=get-type flags=[type="ghendreymalwareexample:investigation" verbose="true"]
+   • fsoc context              config_file=/Users/ghendrey/.fsoc.yaml custom_configs=[] existing=true profile=default
+   • Fetching type...
+   • Calling the observability platform API method=GET path=knowledge-store/v1/types/ghendreymalwareexample:investigation
+   • Using context             context=default tenant=7b8b00cf-5fd4-47bd-adc2-f22c78675194 url=https://optimize-ignite-test.saas.appd-test.com
+   • Current token is no longer valid; trying to refresh
+   • Login is forced in order to get a valid access token
+   • Starting OAuth authentication flow
+   • Trying to get a new access token using the refresh token
+   • Access token refreshed successfully
+   • Updated context           profile=default
+   • Retrying the request with the refreshed token
+   ⨯ Platform API call failed  status=403
+   ⨯ Platform API call failed: error response:
+```
+Why does this happen? It is because you have not __subscribed__ to the solution you just created. So as your next step, 
+subscribe to your solution. 
+```shell
+GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc solution subscribe ghendreymalwareexample
+Tenant 7b8b00cf-5fd4-47bd-adc2-f22c78675194 has successfully subscribed to solution ghendreymalwareexample
+```
+Now you will be allowed to see the assets of your solution:
+```shell
+fsoc knowledge get-type --type "ghendreymalwareexample:investigation" -v
+```
+
 
 
 
