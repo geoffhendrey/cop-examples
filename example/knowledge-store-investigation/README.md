@@ -2,7 +2,24 @@ Our goal in this example is to provide step-by-step insructions for creating a s
 that contains a knowledge Type definiton for a network security investigation. Once the `investigation` Type
 is created and pushed to the platform, we will learn how we can include investigation objects
 in solutions, as well as CRUD them with REST APIs.
+```text
 
+├── README.md
+├── checkFSOC.sh
+├── fork.sh
+├── package
+│   ├── manifest.json
+│   ├── objects
+│   │   ├── malwareInvestigationDefaults.json
+│   │   ├── permissions.json
+│   │   └── role-to-permission-mappings.json
+│   └── types
+│       └── investigation.json
+├── push.sh
+├── setSolutionPrefix.sh
+├── status.sh
+└── validate.sh
+```
 Make sure all the script have executable permission by running this command in the `knowledge-store-investigation`
 folder.
 ```shell
@@ -14,20 +31,44 @@ run the `checkFSOC.sh`script to verify you have a recent version of the COP CLI
 ./checkFSOC.sh
 ```
 
-run the `initSolution.sh`script. It will copy `manifest.json` into a new solution folder prefixed with 
-your username
+run the `fork.sh`script. It will copy the solution `package` folder into a new solution folder prefixed with 
+your username. There are also several file in the solution where your username will be injected.
 
-```shell
-./initSolution.sh
+```text
+.
+├── README.md
+├── checkFSOC.sh
+├── fork.sh
+├── <USERNAME>malwareexample
+│   ├── manifest.json
+│   ├── objects
+│   │   ├── malwareInvestigationDefaults.json
+│   │   ├── permissions.json
+│   │   └── role-to-permission-mappings.json
+│   └── types
+│       └── investigation.json
+├── package
+│   ├── manifest.json
+│   ├── objects
+│   │   ├── malwareInvestigationDefaults.json
+│   │   ├── permissions.json
+│   │   └── role-to-permission-mappings.json
+│   └── types
+│       └── investigation.json
+├── push.sh
+├── setSolutionPrefix.sh
+├── status.sh
+└── validate.sh
 ```
+
 Verify you have a folder whose name is `<your-username>malwareexample`
 You now have a solution manifest file `<your-username>malwareexample/manifest.json` that looks like this, with `$SOLUTION_PREFIX` replaced by your username:
 ```json
 {
-  "manifestVersion": "1.0.0",
-  "name": "$SOLUTION_PREFIXMalwareExample",
-  "solutionVersion": "1.0.0",
-  "dependencies": [],
+  "manifestVersion": "1.1.0",
+  "name": "SOLUTION_PREFIXmalwareexample",
+  "solutionVersion": "1.0.1",
+  "dependencies": ["iam"],
   "description": "network intrusion investigation",
   "contact": "-",
   "homepage": "-",
@@ -38,22 +79,21 @@ You now have a solution manifest file `<your-username>malwareexample/manifest.js
   ],
   "objects":[
     {
-      "type": "$SOLUTION_PREFIXMalwareExample:investigation",
-      "objectsFile": "objects/investigation.json"
+      "type": "SOLUTION_PREFIXmalwareexample:investigation",
+      "objectsFile": "objects/malwareInvestigationDefaults.json"
+    },
+    {
+      "type": "iam:Permission",
+      "objectsFile": "objects/permissions.json"
+    },
+    {
+      "type": "iam:RoleToPermissionMapping",
+      "objectsFile": "objects/role-to-permission-mappings.json"
     }
   ]
 }
 ```
-Now run `setupType.sh` to copy the type definition, `investigation.json` into the `types` folder of your new 
-solution.
-```shell
-./setupType.sh
-```
-Next run `setupObject.sh` to copy `malwareInvestigationDefaults.json" into the 
-objects folder of your solution.
-```shell
-./setupObject.sh
-```
+
 Let's look at the investigation Type definition. 
 
 ```shell
@@ -300,68 +340,224 @@ Deploying solution ghendreymalwareexample version 1.0.0 with tag stable
    • Current token is no longer valid; trying to refresh
 Successfully uploaded solution ghendreymalwareexample version 1.0.0 with tag stable.
 ```
-After pushing your solution, do a 'solution list' to verify
+Check the status of your subscription using the included `status.sh`:
 ```shell
-GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc solution list | grep malware
-ghendreymalwareexample                  stable  false     false         []
+GHENDREY-M-NWK4:knowledge-store-investigation ghendrey$ ./status.sh
+SOLUTION_PREFIX set to: ghendrey
+                       Solution Name: ghendreymalwareexample
+        Solution Subscription Status: Subscribed
+     Current Solution Upload Version: 1.0.1
+   Current Solution Upload Timestamp: 2024-01-19T04:25:40.187Z
+     Last Successful Install Version: 1.0.1
+    Current Solution Install Version: 1.0.1
+Current Solution Install Successful?: true
+       Current Solution Install Time: 2024-01-19T20:54:14.415Z
+    Current Solution Install Message:
 ```
-
-The next thing you will be tempted to do is look at the investigation type that you just installed. But as you will
-see below, if you try to get the type you just installed, you will get a 403 forbidden:
+Query the Type definition for investigation. Be sure to replace your username in the fsoc command below :
 ```shell
-GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc knowledge get-type --type "ghendreymalwareexample:investigation" -v
-   • fsoc version              BuildHost=fv-az1017-209 BuildTimestamp=1702089739 GitBranch=v0.57.0 GitDirty=false GitHash=a4a651c GitTimestamp=1702088134 IsDev=false Platform=darwin-arm64 Version=0.57.0 VersionMajor=0 VersionMeta= VersionMinor=57 VersionPatch=0 VersionPrerelease=
-   • fsoc command line         arguments=[] command=get-type flags=[type="ghendreymalwareexample:investigation" verbose="true"]
-   • fsoc context              config_file=/Users/ghendrey/.fsoc.yaml custom_configs=[] existing=true profile=default
-   • Fetching type...
-   • Calling the observability platform API method=GET path=knowledge-store/v1/types/ghendreymalwareexample:investigation
-   • Using context             context=default tenant=7b8b00cf-5fd4-47bd-adc2-f22c78675194 url=https://optimize-ignite-test.saas.appd-test.com
-   • Current token is no longer valid; trying to refresh
-   • Login is forced in order to get a valid access token
-   • Starting OAuth authentication flow
-   • Trying to get a new access token using the refresh token
-   • Access token refreshed successfully
-   • Updated context           profile=default
-   • Retrying the request with the refreshed token
-   ⨯ Platform API call failed  status=403
-   ⨯ Platform API call failed: error response:
+fsoc knowledge get-type --type "USERNAMEmalwareexample:investigation" 
 ```
-Why does this happen? It is because you have not __subscribed__ to the solution you just created. So as your next step, 
-subscribe to your solution. 
+```yaml
+allowedLayers:
+    - SOLUTION
+    - TENANT
+createdAt: "2024-01-19T20:54:14.757Z"
+identifyingProperties:
+    - /name
+    - /caseID
+jsonSchema:
+    $schema: http://json-schema.org/draft-07/schema#
+    properties:
+        affectedSystems:
+            items:
+                type: string
+            type: array
+        affectedUsers:
+            items:
+                type: string
+            type: array
+        attackVectors:
+            items:
+                type: string
+            type: array
+        caseID:
+            type: string
+        description:
+            type: string
+        endTime:
+            format: date-time
+            type: string
+        evidenceAndArtifacts:
+            items:
+                type: string
+            type: array
+        evidencePreservation:
+            type: string
+        incidentClassification:
+            type: string
+        incidentResponseActions:
+            type: string
+        intrusionType:
+            type: string
+        investigators:
+            items:
+                type: string
+            type: array
+        ipAddresses:
+            properties:
+                source:
+                    type: string
+                target:
+                    type: string
+            type: object
+        legalAndCompliance:
+            type: string
+        lessonsLearned:
+            type: string
+        name:
+            type: string
+        networkTrafficLogs:
+            type: string
+        notes:
+            type: string
+        recommendations:
+            type: string
+        remediationActions:
+            type: string
+        reporting:
+            type: string
+        severity:
+            enum:
+                - low
+                - medium
+                - high
+            type: string
+        startTime:
+            format: date-time
+            type: string
+        status:
+            enum:
+                - open
+                - closed
+                - in progress
+            type: string
+        thirdPartyInvolvement:
+            type: string
+        timestamps:
+            properties:
+                end:
+                    format: date-time
+                    type: string
+                start:
+                    format: date-time
+                    type: string
+            type: object
+    required:
+        - name
+        - caseID
+        - investigators
+        - startTime
+        - description
+        - status
+    type: object
+name: investigation
+solution: ghendreymalwareexample
+updatedAt: "2024-01-19T20:54:14.757Z"
+```
+In addition to the type definition, an object included in `package/objects/malwareInvestigationDefaults.json` has been added 
+has been inserted into the store. In fact, any objects included in your solution are added. As mentioned
+earlier, solution objects are added to the knowledge store at the SOLUTION layer. Now query the knowledge store
+to read back the object and verify it is in the store. In the fsoc command below, be sure to replace USERNAME
+with your username.
 ```shell
-GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc solution subscribe ghendreymalwareexample
-Tenant 7b8b00cf-5fd4-47bd-adc2-f22c78675194 has successfully subscribed to solution ghendreymalwareexample
+fsoc  knowledge get --layer-type=SOLUTION  --type=USERNAMEmalwareexample:investigation  --layer-id=USERNAMEmalwareexample --object-id='USERNAMEmalwareexample:/name=Malware Incident Report;/caseID=Example:00000'
 ```
-Try to query the Type definition for investigation:
-```shell
-fsoc knowledge get-type --type "ghendreymalwareexample:investigation" -v
+In the response, note that your object is contained in the `data` field
+```YAML
+createdAt: "2024-01-19T20:54:14.768Z"
+data:
+  affectedSystems:
+    - Workstation-1
+  affectedUsers:
+    - User-C
+  attackVectors:
+    - Email attachment
+    - Drive-by download
+  caseID: Example:00000
+  description: Investigation of a suspected malware infection on a workstation.
+  endTime: "2023-12-15T11:30:00Z"
+  evidenceAndArtifacts:
+    - Malware executable
+    - Suspicious email
+  evidencePreservation: Evidence preserved according to security policy.
+  incidentClassification: Malware Infection
+  incidentResponseActions: Isolated the workstation from the network, initiated malware scan.
+  intrusionType: Malware
+  investigators:
+    - Security Team
+  ipAddresses:
+    source: 192.168.1.50
+    target: 104.20.2.17
+  legalAndCompliance: Compliance with data protection regulations
+  lessonsLearned: Enhanced endpoint security measures.
+  name: Malware Incident Report
+  networkTrafficLogs: Unusual network activity detected on the workstation.
+  notes: The affected workstation has been isolated and is undergoing analysis.
+  recommendations: Implement email filtering and endpoint protection measures.
+  remediationActions: Cleaned malware, implemented preventive measures.
+  reporting: Internal incident reporting
+  severity: high
+  startTime: "2023-12-15T10:00:00Z"
+  status: open
+  thirdPartyInvolvement: Consulted with cybersecurity experts.
+  timestamps:
+    end: "2023-12-15T11:30:00Z"
+    start: "2023-12-15T10:00:00Z"
+id: ghendreymalwareexample:/name=Malware Incident Report;/caseID=Example:00000
+layerId: ghendreymalwareexample
+layerType: SOLUTION
+objectMimeType: application/json
+objectType: ghendreymalwareexample:investigation
+patch: null
+targetObjectId: null
+
 ```
-You will receive 403 forbidden:
-```shell
-GHENDREY-M-NWK4:ghendreymalwareexample ghendrey$ fsoc knowledge get-type --type "ghendreymalwareexample:investigation" -v
-   • fsoc version              BuildHost=fv-az1017-209 BuildTimestamp=1702089739 GitBranch=v0.57.0 GitDirty=false GitHash=a4a651c GitTimestamp=1702088134 IsDev=false Platform=darwin-arm64 Version=0.57.0 VersionMajor=0 VersionMeta= VersionMinor=57 VersionPatch=0 VersionPrerelease=
-   • fsoc command line         arguments=[] command=get-type flags=[type="ghendreymalwareexample:investigation" verbose="true"]
-   • fsoc context              config_file=/Users/ghendrey/.fsoc.yaml custom_configs=[] existing=true profile=default
-   • Fetching type...
-   • Calling the observability platform API method=GET path=knowledge-store/v1/types/ghendreymalwareexample:investigation
-   • Using context             context=default tenant=7b8b00cf-5fd4-47bd-adc2-f22c78675194 url=https://optimize-ignite-test.saas.appd-test.com
-   • Current token is no longer valid; trying to refresh
-   • Login is forced in order to get a valid access token
-   • Starting OAuth authentication flow
-   • Trying to get a new access token using the refresh token
-   • Access token refreshed successfully
-   • Updated context           profile=default
-   • Retrying the request with the refreshed token
-   ⨯ Platform API call failed  status=403
-   ⨯ Platform API call failed: error response:
+You have added a Type to the system for malware investigation; It is readable (as shown above)
+only because the solution includes a `permissions.json` and `role-to-permission-mappings.json`. Note that after running
+the `fork.sh` script, SOLUTION_PREFIX has been replaced with your username from your local operating system.
+
+Here is `permissions.json`
+```json
+  {
+    "name": "readMalwareInvestigation",
+    "displayName": "SOLUTION_PREFIXmalwareexample:readMalwareInvestigation",
+    "description": "Read Malware Investigation",
+    "actionAndResources": [
+      {
+        "action": {
+          "classification": "READ"
+        },
+        "resource": {
+          "type": "SOLUTION_PREFIXmalwareexample:investigation"
+        }
+      }
+    ]
+  }
 ```
-To allow querying of the Type definition you must include a permission object in your solution
-(WIP) next step is to include permission object
-
-
-
-
-
-
-
-
+Here is `role-to-permission-mappings.json`
+```json
+{
+  "name": "malwareRoleMappings",
+  "roles": [
+    "iam:configManager",
+    "iam:troubleshooter",
+    "iam:observer"
+  ],
+  "permissions": [
+    {
+      "id": "SOLUTION_PREFIXmalwareexample:readMalwareInvestigation"
+    }
+  ]
+}
+```

@@ -2,7 +2,7 @@
   "manifestVersion": "1.1.0",
   "name": "$SOLUTION_PREFIXmalwareexample",
   "solutionVersion": "1.0.0",
-  "dependencies": [],
+  "dependencies": ["iam"],
   "description": "network intrusion investigation",
   "contact": "-",
   "homepage": "-",
@@ -15,6 +15,14 @@
     {
       "type": "$SOLUTION_PREFIXmalwareexample:investigation",
       "objectsFile": "objects/malwareInvestigationDefaults.json"
+    },
+    {
+      "type": "iam:Permission",
+      "objectsFile": "objects/permissions.json"
+    },
+    {
+      "type": "iam:RoleToPermissionMapping",
+      "objectsFile": "objects/role-to-permission-mappings.json"
     }
   ]
 }

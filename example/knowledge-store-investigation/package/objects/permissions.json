@@ -1,0 +1,17 @@
+[
+  {
+    "name": "readMalwareInvestigation",
+    "displayName": "SOLUTION_PREFIXmalwareexample:readMalwareInvestigation",
+    "description": "Read Malware Investigation",
+    "actionAndResources": [
+      {
+        "action": {
+          "classification": "READ"
+        },
+        "resource": {
+          "type": "SOLUTION_PREFIXmalwareexample:investigation"
+        }
+      }
+    ]
+  }
+]

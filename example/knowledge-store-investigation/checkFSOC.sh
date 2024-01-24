@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Check if jq is installed
+jq_path=$(which jq)
+
+if [ -z "$jq_path" ]; then
+  echo "jq is not found in your PATH. Please make sure it's installed and in your PATH."
+  exit 1
+fi
+
 # Get the location of the fsoc binary
 fsoc_path=$(which fsoc)
 
@@ -17,5 +25,7 @@ if [[ "$fsoc_version" < "0.57.0" ]]; then
   exit 1
 fi
 
+echo "jq path: $jq_path"
 echo "fsoc binary path: $fsoc_path"
 echo "fsoc version: $fsoc_version"
+echo "all required utilities are present"
