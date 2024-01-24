@@ -1,5 +1,5 @@
 Our goal in this example is to provide step-by-step insructions for creating a solution
-that contains a knowledge Type definiton for a network security investigation. Once the `investigation` Type
+that contains a knowledge Type definiton for a network/malware security investigation. Once the `investigation` Type
 is created and pushed to the platform, we will learn how we can include investigation objects
 in solutions, as well as CRUD them with REST APIs. The `package` folder contains the solution structure.
 ```text
