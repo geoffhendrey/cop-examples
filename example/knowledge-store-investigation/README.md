@@ -579,6 +579,8 @@ a key aspect of the Cisco Observability Platform. In order to add the permission
 a dependency on the system `iam` solution that defines Types `iam:Permission` and `iam:RoleToPermissionMapping`. This allows
 the solution to add objects whose types are defined in other solutions.
 
+Next steps: If you want to modify your solution, remember to bump the `solutionVersion` in `manifest.json`. 
+
 Congratulations! You now understand the basics of knowledge modeling. To Review, you leared:
 1. How a solution package is structured
 2. How to define a new Type of knowledge
