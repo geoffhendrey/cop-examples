@@ -531,9 +531,14 @@ patch: null
 targetObjectId: null
 
 ```
-You have added a Type to the system for malware investigation; It is readable (as shown above)
-only because the solution includes a `permissions.json` and `role-to-permission-mappings.json`. Note that after running
-the `fork.sh` script, SOLUTION_PREFIX has been replaced with your username from your local operating system.
+Note, if you want to query all existing investigations, lust leave off the `--objectID` (as usual, USERNAME is your username).
+This query returns a page of objects.
+```shell
+fsoc  knowledge get --layer-type=SOLUTION  --type=USERNAMEalwareexample:investigation  --layer-id=USERNAMEmalwareexample
+```
+The Cisco Observability Platform contains several built-in roles. This example solution grants some of those
+roles with permission to access the malware investigation Type. The solution includes `permissions.json` and
+`role-to-permission-mappings.json`. Note that after running the `fork.sh` script, SOLUTION_PREFIX has been replaced with your username from your local operating system.
 
 Here is `permissions.json`
 ```json
@@ -569,6 +574,11 @@ Here is `role-to-permission-mappings.json`
   ]
 }
 ```
+If you looked closely at `manifest.json` you may have noticed the line `"dependencies": ["iam"]`. Dependency management is
+a key aspect of the Cisco Observability Platform. In order to add the permission and role files, the manifest declares
+a dependency on the system `iam` solution that defines Types `iam:Permission` and `iam:RoleToPermissionMapping`. This allows
+the solution to add objects whose types are defined in other solutions.
+
 Congratulations! You now understand the basics of knowledge modeling. To Review, you leared:
 1. How a solution package is structured
 2. How to define a new Type of knowledge
