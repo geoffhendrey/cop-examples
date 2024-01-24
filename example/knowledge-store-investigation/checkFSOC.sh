@@ -20,8 +20,8 @@ fi
 fsoc_version=$(fsoc version 2>&1 | awk '{print $3}')
 
 # Check if the version is at least 0.57.0
-if [[ "$fsoc_version" < "0.57.0" ]]; then
-  echo "fsoc version $fsoc_version is not supported. Please install version 0.57.0 or higher."
+if [[ "$fsoc_version" < "0.59.0" ]]; then
+  echo "fsoc version $fsoc_version is not supported. Please install version 0.59.0 or higher."
   exit 1
 fi
 
