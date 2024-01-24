@@ -1,7 +1,15 @@
 Our goal in this example is to provide step-by-step insructions for creating a solution
-that contains a knowledge Type definiton for a network/malware security investigation. Once the `investigation` Type
-is created and pushed to the platform, we will learn how we can include investigation objects
-in solutions, as well as CRUD them with REST APIs. The `package` folder contains the solution structure.
+that contains a knowledge Type definiton for a network/malware security investigation.
+
+You will learn:
+1. How a solution package is structured
+2. How to define a new Type of knowledge
+3. How to push your solution
+4. How to query for your Type, and actual knowledge objects
+5. How to apply access control to your knowledge model
+
+
+The `package` folder contains the solution structure.
 ```text
 
 ├── README.md
@@ -561,3 +569,9 @@ Here is `role-to-permission-mappings.json`
   ]
 }
 ```
+Congratulations! You now understand the basics of knowledge modeling. To Review, you leared:
+1. How a solution package is structured
+2. How to define a new Type of knowledge
+3. How to push your solution
+4. How to query for your Type, and actual knowledge objects
+5. How to apply access control to your knowledge model
