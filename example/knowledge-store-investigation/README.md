@@ -273,10 +273,10 @@ In the API call above, `extensibility:solution` is a fully qualifed type. We can
 in the platform is implemented as a System Solution called `extensibility` that has defined a Type
 called `solution`, in which it stores details about every solution that has been pushed to the platform.
 
-Recall that the name of your solution is `$SOLUTION_PREFIXMalwareExample`. This
+Recall that the name of your solution is `$SOLUTION_PREFIXmalwareexample`. This
 means tht the fully qualifed name of your investigation Type is:
 ```
-$SOLUTION_PREFIXMalwareExample:investigation`
+$SOLUTION_PREFIXmalwareexample:investigation`
 ```
 * `jsonSchema` - this is where we need to define our type's json document structure. As you can
 see from the JSON below, the json schema for the ingestigation contains numerous fields ranging from 
