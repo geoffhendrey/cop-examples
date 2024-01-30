@@ -256,10 +256,10 @@ think of  a type as similar to a table in a traditional database
 * `identifyingProperties` - When we store an actual investigation object, whether it is coming from a solution package
 as we will do, or a user or UI via an API call, the Knowledge Store must have a way to uniquely identify the
 object. `identifyingProperties` is a JSON Pointer that tells the system which field of an ingvestigation object
-can be used to uniquely identify it. We will be changing the identifyingProperties from `["/name"]` to `["/name", "/caseId"]`
+can be used to uniquely identify it. We will be changing the identifyingProperties from `["/name"]` to `["/name", "/caseID"]`
 ```json
     "identifyingProperties": [
-        "/name", "caseId"
+        "/name", "/caseID"
     ]
 ```
 Let's briefly discuss how the 
@@ -288,7 +288,7 @@ $SOLUTION_PREFIXmalwareexample:investigation`
 ```
 * `jsonSchema` - this is where we need to define our type's json document structure. As you can
 see from the JSON below, the json schema for the ingestigation contains numerous fields ranging from 
-the identifying property (`caseId`) to `description`, `severity`, and `affectedSystems`
+the identifying property (`caseID`) to `description`, `severity`, and `affectedSystems`
 
 Let's now examine the  `malwareInvestigationDefaults.json` object. The first thing to note is that it complies
 with the JSON schema for `investigation`
