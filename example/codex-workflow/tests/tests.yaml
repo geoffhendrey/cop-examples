@@ -1,0 +1,62 @@
+testFiles:
+  - ${ $import($open('tests/workflow.test.yaml')) }
+results: >-
+  ${ (
+    $appendPath := function($prefix, $path) {
+      $prefix & '/' & $path
+    };
+
+    $compare := function($actual, $expected, $path) {(
+      $actual_keys := $keys($actual);
+      $expected_keys := $keys($expected);
+
+      $extra_keys := $filter($actual_keys, function($key) { $not($key in $expected_keys) }) ~> $map($appendPath($path, ?));
+      $missing_keys := $filter($expected_keys, function($key) { $not($key in $actual_keys) }) ~> $map($appendPath($path, ?));
+
+      $diff := $map($actual_keys, function($key) {
+          $key in $expected_keys ? $findDiff($lookup($actual, $key), $lookup($expected, $key), $appendPath($path, $key))
+      });
+
+      {
+          "missing": $missing_keys ~> $append($diff.missing),
+          "extra": $extra_keys ~> $append($diff.extra),
+          "diff": $diff.diff[]
+      }
+    )};
+
+    $findDiff := function($actual, $expected, $path) {(
+      $actual != $expected ? (
+          $type($actual) != $type($expected) ?
+              {'diff': {'path': $path, 'diff': 'type', 'expected': $type($expected), 'actual': $type($actual) }} :
+              $type($actual) = 'array' ?
+              (
+                  $count($actual) != $count($expected) ?
+                      {'diff': {'path': $path, 'diff': 'count', 'expected': $count($expected), 'actual': $count($actual)}}
+                      : $map($actual, function($item, $i) {
+                          $compare($item, $expected[$i], $path & '[' & $i & ']' )
+                      })~>$reduce($append);
+              ) :
+              $type($actual) = 'object' ? $compare($actual, $expected, $path) :
+              {'diff': {'path': $path, 'diff': 'value', 'expected': $expected, 'actual': $actual}}
+      )
+    )};
+
+    $runTest := function($name, $function, $input, $expected) { (
+      $actual := $eval($function, $input);
+      ($actual != $expected) ? (
+        $errors := $compare($actual, $expected);
+        $errorReport($errors~>|$|{'test': $name}|);
+        {
+          'test': $name,
+          'result': 'failed',
+          'errors': $errors
+        }
+      )
+      : {
+          'test': $name,
+          'result': 'passed'
+        }
+    )};
+
+    testFiles.testCases.tests.($runTest( '[' & %.name & '].[' & $.name & ']', %.function, $.in, $.out))
+  ) }

@@ -1,0 +1,16 @@
+namespace:
+  name: codex_workflow
+  version: 1
+kind: metric
+name: healthrule.violation.count
+displayName: Health rule violations
+description: Counts the number of health rule violations
+attributeDefinitions:
+  attributes:
+    violation_severity: string
+category: sum
+contentType: sum
+aggregationTemporality: delta
+isMonotonic: true
+type: long
+unit: '{violations}'
