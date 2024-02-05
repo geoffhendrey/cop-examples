@@ -1,7 +1,8 @@
 [
   {
+    "solutionId": "@INSTALL !${$sys.solutionId}",
     "name": "readMalwareInvestigation",
-    "displayName": "SOLUTION_PREFIXmalwareexample:readMalwareInvestigation",
+    "displayName": "/${solutionId & ':readMalwareInvestigation'}",
     "description": "Read Malware Investigation",
     "actionAndResources": [
       {
@@ -9,7 +10,7 @@
           "classification": "READ"
         },
         "resource": {
-          "type": "SOLUTION_PREFIXmalwareexample:investigation"
+          "type": "/${$[0].solutionId & ':investigation'}"
         }
       }
     ]
