@@ -1,0 +1,17 @@
+{
+    "manifestVersion": "1.0.0",
+    "name": "cop-example-rest",
+    "solutionVersion": "1.0.0",
+    "dependencies": ["zodiac"],
+    "description": "Simple REST example on CO platform",
+    "contact": "<your-email-here>",
+    "gitRepoUrl": "-",
+    "readme" : "readme.md",
+    "types" : [],
+    "objects": [
+        {
+            "type": "zodiac:function",
+            "objectsDir": "objects/functions"
+        }
+    ]
+  }
