@@ -1,0 +1,16 @@
+{
+    "namespace": {
+        "name": "SOLUTION_PREFIXatm",
+        "version": 1
+    },
+    "kind": "metric",
+    "name": "transactions",
+    "displayName": "transactions",
+    "description": "Number of transactions",
+    "category": "sum",
+    "contentType": "sum",
+    "aggregationTemporality": "cumulative",
+    "isMonotonic": false,
+    "type": "long",
+    "unit": "{transactions}"
+}

@@ -1,0 +1,28 @@
+{
+    "manifestVersion": "1.1.0",
+    "name": "SOLUTION_PREFIXatm",
+    "solutionVersion": "1.0.2",
+    "dependencies": [
+        "iam",
+        "fmm"
+    ],
+    "description": "ATM Custom Metrics",
+    "contact": "-",
+    "homepage": "-",
+    "gitRepoUrl": "-",
+    "readme": "-",
+    "objects": [
+        {
+            "type": "fmm:namespace",
+            "objectsDir": "objects/model/namespaces"
+        },
+        {
+            "type": "fmm:metric",
+            "objectsDir": "objects/model/metrics"
+        },
+        {
+            "type": "fmm:entity",
+            "objectsDir": "objects/model/entities"
+        }
+    ]
+}

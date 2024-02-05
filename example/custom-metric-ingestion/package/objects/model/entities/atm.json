@@ -1,0 +1,28 @@
+{
+    "namespace": {
+        "name": "SOLUTION_PREFIXatm",
+        "version": 1
+    },
+    "kind": "entity",
+    "name": "atm",
+    "displayName": "atm",
+    "attributeDefinitions": {
+        "required": [
+            "name"
+        ],
+        "optimized": [],
+        "attributes": {
+            "name": {
+                "type": "string",
+                "description": "The name of the atm"
+            }
+        }
+    },
+    "lifecycleConfiguration": {
+        "purgeTtlInMinutes": 4200,
+        "retentionTtlInMinutes": 1440
+    },
+    "metricTypes": [
+        "SOLUTION_PREFIXatm:transactions"
+    ]
+}

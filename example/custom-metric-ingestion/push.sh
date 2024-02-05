@@ -1,10 +1,5 @@
 #!/bin/bash
 
-source ./setSolutionPrefix.sh
+source setSolutionEnvs.sh
 
-# Check if SOLUTION_PREFIX is set
-if [ -z "$SOLUTION_PREFIX" ]; then
-  echo "Warning: SOLUTION_PREFIX environment variable is not set."
-  exit 1
-fi
-fsoc solution push --directory ${SOLUTION_PREFIX}malwareexample --wait --tag=stable
+fsoc solution push --directory $DESTINATION_DIR_NAME --wait --tag=stable
