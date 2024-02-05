@@ -111,6 +111,7 @@ Edit the manifest file to set the email attribute.
     ]
   }
 }
+```
 
 From the package folder, use fsoc command to push the package to the plaform.
 
