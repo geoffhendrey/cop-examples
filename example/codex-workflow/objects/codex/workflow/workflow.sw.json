@@ -1,0 +1,68 @@
+{
+  "id": "violations-counter",
+  "name": "Violations counter",
+  "description": "Counts violations events for k8s workflows",
+  "version": "1.0.0",
+  "specVersion": "0.8",
+  "events": [
+    {
+      "name": "EventReceived",
+      "type": "contracts:cloudevent/platform:event.enriched.v1",
+      "kind": "consumed",
+      "dataOnly": true,
+      "source": "platform"
+    },
+    {
+      "name": "CreateMeasurement",
+      "type": "contracts:cloudevent/platform:measurement.received.v1",
+      "kind": "produced"
+    }
+  ],
+  "functions": [
+    {
+      "name": "checkType",
+      "type": "expression",
+      "operation": "$.type = 'alerting:healthrule.violation' and 'k8s:workflow' in $.entities.type"
+    },
+    {
+      "name": "createMeasurement",
+      "type": "expression",
+      "operation": "{\n  'entity': $.entities[0],\n  'type': 'codexworkflow:healthrule.violation.count',\n  'attributes': {\n    'violation_severity': $.attributes.violation_severity\n  },\n  'measurements': [\n    {\n      'timestamp': $.attributes.event_time,\n      'intValue': $.attributes.'event_details.condition_details.violation_count'\n    }\n  ]\n}"
+    }
+  ],
+  "states": [
+    {
+      "name": "EventReceived",
+      "type": "event",
+      "onEvents": [
+        {
+          "eventRefs": [
+            "EventReceived"
+          ],
+          "actions": [
+            {
+              "name": "createMeasurement",
+              "condition": "${ fn:checkType }",
+              "functionRef": "createMeasurement",
+              "actionDataFilter": {
+                "toStateData": "${ measurement }"
+              }
+            }
+          ]
+        }
+      ],
+      "stateDataFilter": {
+        "output": "${ measurement }"
+      },
+      "end": {
+        "terminate": true,
+        "produceEvents": [
+          {
+            "eventRef": "CreateMeasurement",
+            "data": "${ measurement }"
+          }
+        ]
+      }
+    }
+  ]
+}

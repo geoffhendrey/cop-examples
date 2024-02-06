@@ -1,4 +1,4 @@
-workflow: ${ $import($open('objects/codex/workflow/workflow.sw.yaml')) }
+workflow: ${ $import($open('objects/codex/workflow/workflow.sw.json')) }
 testCases:
   - name: functions.checkType
     function: ../../${ workflow.functions[name="checkType"].operation }
@@ -67,7 +67,7 @@ testCases:
           entity:
             id: k8s:deployment:UtS/BYZNO7y7aDUpXqRvHQ
             type: k8s:workflow
-          type: 'codex_workflow:healthrule.violation.count'
+          type: 'codexworkflow:healthrule.violation.count'
           attributes:
             violation_severity: CRITICAL
           measurements:
