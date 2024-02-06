@@ -22,7 +22,7 @@
     {
       "name": "checkType",
       "type": "expression",
-      "operation": "$.type = 'alerting:healthrule.violation' and 'k8s:workflow' in $.entities.type"
+      "operation": "$.type = 'alerting:healthrule.violation' and 'k8s:workload' in $.entities.type"
     },
     {
       "name": "createMeasurement",

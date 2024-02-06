@@ -6,7 +6,7 @@ testCases:
       - name: match
         in:
           entities:
-            - type: k8s:workflow
+            - type: k8s:workload
               id: k8s:deployment:UtS/BYZNO7y7aDUpXqRvHQ
           timestamp: 1706911250000
           type: alerting:healthrule.violation
@@ -27,7 +27,7 @@ testCases:
       - name: event type not matched
         in:
           entities:
-            - type: k8s:workload
+            - type: k8s:namespace
               id: nRIoEU8xOVmMOr1bf1z7vA
           timestamp: 1706911250000
           type: alerting:healthrule.violation
@@ -46,7 +46,7 @@ testCases:
       - name: test
         in:
           entities:
-            - type: k8s:workflow
+            - type: k8s:workload
               id: k8s:deployment:UtS/BYZNO7y7aDUpXqRvHQ
           timestamp: 1706911250000
           type: alerting:healthrule.violation
@@ -66,7 +66,7 @@ testCases:
         out:
           entity:
             id: k8s:deployment:UtS/BYZNO7y7aDUpXqRvHQ
-            type: k8s:workflow
+            type: k8s:workload
           type: 'codexworkflow:healthrule.violation.count'
           attributes:
             violation_severity: CRITICAL

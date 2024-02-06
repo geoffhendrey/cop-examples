@@ -12,7 +12,7 @@
   ],
   "extends": {
     "k8s": [
-      "workflow"
+      "workload"
     ]
   }
 }

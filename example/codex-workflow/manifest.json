@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.1.0",
   "name": "codexworkflow",
-  "solutionVersion": "1.0.3",
+  "solutionVersion": "1.0.4",
   "dependencies": [
     "fmm",
     "codex"
