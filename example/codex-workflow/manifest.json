@@ -6,7 +6,8 @@
     "fmm",
     "codex",
     "k8s",
-    "apm"
+    "apm",
+    "alerting"
   ],
   "description": "Health violation counter",
   "contact": "abokhand@cisco.com",
