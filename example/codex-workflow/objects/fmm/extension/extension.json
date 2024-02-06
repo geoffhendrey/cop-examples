@@ -13,6 +13,9 @@
   "extends": {
     "k8s": [
       "workload"
+    ],
+    "apm": [
+      "service"
     ]
   }
 }

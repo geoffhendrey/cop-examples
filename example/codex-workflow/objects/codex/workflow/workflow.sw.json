@@ -1,7 +1,7 @@
 {
   "id": "violations-counter",
   "name": "Violations counter",
-  "description": "Counts violations events for k8s workflows",
+  "description": "Counts violations events for k8s workloads and apm services",
   "version": "1.0.0",
   "specVersion": "0.8",
   "events": [
@@ -22,12 +22,12 @@
     {
       "name": "checkType",
       "type": "expression",
-      "operation": "$.type = 'alerting:healthrule.violation' and 'k8s:workload' in $.entities.type"
+      "operation": "event.type = 'alerting:healthrule.violation' and (('k8s:workload' in event.entities.type) or ('apm:service' in event.entities.type))"
     },
     {
       "name": "createMeasurement",
       "type": "expression",
-      "operation": "{\n  'entity': $.entities[0],\n  'type': 'codexworkflow:healthrule.violation.count',\n  'attributes': {\n    'violation_severity': $.attributes.violation_severity\n  },\n  'measurements': [\n    {\n      'timestamp': $.attributes.event_time,\n      'intValue': $.attributes.'event_details.condition_details.violation_count'\n    }\n  ]\n}"
+      "operation": "{'entity': event.entities[0], 'type': 'codexworkflow:healthrule.violation.count', 'attributes': {'violation_severity': event.attributes.violation_severity}, 'measurements': [{'timestamp': event.attributes.event_time, 'intValue': event.attributes.'event_details.condition_details.violation_count'}]}"
     }
   ],
   "states": [
@@ -39,6 +39,9 @@
           "eventRefs": [
             "EventReceived"
           ],
+          "eventDataFilter": {
+            "toStateData": "${ event }"
+          },
           "actions": [
             {
               "name": "createMeasurement",
@@ -51,9 +54,6 @@
           ]
         }
       ],
-      "stateDataFilter": {
-        "output": "${ measurement }"
-      },
       "end": {
         "terminate": true,
         "produceEvents": [

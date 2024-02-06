@@ -1,10 +1,12 @@
 {
   "manifestVersion": "1.1.0",
   "name": "codexworkflow",
-  "solutionVersion": "1.0.4",
+  "solutionVersion": "1.0.9",
   "dependencies": [
     "fmm",
-    "codex"
+    "codex",
+    "k8s",
+    "apm"
   ],
   "description": "Health violation counter",
   "contact": "abokhand@cisco.com",
