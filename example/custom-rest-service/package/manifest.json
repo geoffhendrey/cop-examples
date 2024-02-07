@@ -12,6 +12,14 @@
         {
             "type": "zodiac:function",
             "objectsDir": "objects/functions"
+        },
+        {
+            "type": "iam:Permission",
+            "objectsFile": "objects/iam/permissions.json"
+        },
+        {
+            "type": "iam:RoleToPermissionMapping",
+            "objectsFile": "objects/iam/role-to-permission-mappings.json"
         }
     ]
   }

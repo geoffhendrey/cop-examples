@@ -80,6 +80,12 @@ The `package` folder contains the files required to create the solution.
     └── function.json
 ```
 
+Copy the `package` folder to a new folder `<USER-NAME>restdemo
+
+```shell
+cp -R package <USER-NAME>restdemo
+```
+
 Edit the function.json file to use the image from your repository.
 
 ```json
@@ -118,4 +124,21 @@ From the package folder, use fsoc command to push the package to the plaform.
 ```shell
 fsoc solution push --stable
 ```
-  
+
+ When successful this command should print the following message
+
+ ```shell
+ Successfully uploaded solution <USER-NAME>restdemo version 1.0.0 with tag stable.
+ ``` 
+
+ Subscribe to the newly installed solution
+
+ ```shell
+ fsoc solution subscribe <USER-NAME>restdemo
+ ```
+
+Use curl to execute a GET request on the newly deployed service
+
+```shell
+curl --location 'https://<HOST>/rest/<SOLUTION-NAME>/<FUNCTION-NAME>/' --header 'Authorization: Bearerer <Token> ' -v
+```
