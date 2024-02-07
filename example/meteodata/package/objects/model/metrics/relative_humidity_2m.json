@@ -1,0 +1,15 @@
+{
+    "namespace": {
+        "name": "meteodata",
+        "version": 1
+    },
+    "kind": "metric",
+    "name": "relative_humidity_2m",
+    "displayName": "relative_humidity_2m",
+    "category": "current",
+    "contentType": "gauge",
+    "aggregationTemporality": "unspecified",
+    "isMonotonic": false,
+    "type": "double",
+    "unit": "%"
+}

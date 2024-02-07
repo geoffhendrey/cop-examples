@@ -1,0 +1,57 @@
+{
+    "manifestVersion": "1.1.0",
+    "name": "meteodata",
+    "solutionVersion": "0.0.35",
+    "solutionType": "component",
+    "dependencies": [
+        "fmm",
+        "zodiac",
+        "iam"
+    ],
+    "description": "Description for retrieving weather data",
+    "contact": "the email for this solution's point of contact",
+    "homepage": "the url for this solution's homepage",
+    "gitRepoUrl": "the url for the git repo holding your solution",
+    "readme": "the url for this solution's readme file",
+    "objects": [
+        {
+            "type": "fmm:namespace",
+            "objectsDir": "objects/model/namespaces"
+        },
+        {
+            "type": "fmm:entity",
+            "objectsDir": "objects/model/entities"
+        },
+        {
+            "type": "fmm:metric",
+            "objectsDir": "objects/model/metrics"
+        },
+        {
+            "type": "fmm:resourceMapping",
+            "objectsDir": "objects/model/resource-mappings"
+        },
+        {
+            "type": "zodiac:function",
+            "objectsDir": "objects/functions/function"
+        },
+        {
+            "type": "zodiac:subscriptionCronConfig",
+            "objectsDir": "objects/functions/subscriptionCronConfig"
+        },
+        {
+            "type": "zodiac:egressHosts",
+            "objectsDir": "objects/functions/egressHosts"
+        },
+        {
+            "type": "iam:Permission",
+            "objectsDir": "objects/iam/permission"
+        },
+        {
+            "type": "iam:RoleToPermissionMapping",
+            "objectsDir": "objects/iam/roleToPermissionMapping"
+        }
+    ],
+    "types": [
+        "types/meteo_location.json"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "name": "meteoPermissionMapping",
+    "roles": [
+        "iam:observer",
+        "iam:troubleshooter",
+        "iam:configManager",
+        "iam:tenantAdmin"
+    ],
+    "permissions": [
+        {
+            "id": "meteo:meteoLocationPermission"
+        }
+    ]
+}

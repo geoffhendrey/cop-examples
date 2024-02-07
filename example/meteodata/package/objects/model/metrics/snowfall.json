@@ -1,0 +1,15 @@
+{
+    "namespace": {
+        "name": "meteodata",
+        "version": 1
+    },
+    "kind": "metric",
+    "name": "snowfall",
+    "displayName": "snowfall",
+    "category": "current",
+    "contentType": "gauge",
+    "aggregationTemporality": "unspecified",
+    "isMonotonic": false,
+    "type": "double",
+    "unit": "cm"
+}

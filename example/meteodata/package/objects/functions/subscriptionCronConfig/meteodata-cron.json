@@ -1,0 +1,5 @@
+{
+    "name": "meteodata-cron",
+    "function": "meteodata",
+    "schedule": "*/15 * * * *"
+}

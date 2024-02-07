@@ -1,0 +1,21 @@
+{
+    "namespace": {
+        "name": "meteodata",
+        "version": 1
+    },
+    "kind": "resourceMapping",
+    "name": "meteodata_location_entity_mapping",
+    "displayName": "Resource mapping configuration for the meteodata:location entity",
+    "entityType": "meteodata:location",
+    "scopeFilter": "'meteodata'.equals(getValue(resourceAttributes, 'telemetry.sdk.name').toLowerCase()) && containsAll(resourceAttributes, ['location.name'])",
+    "mappings": [
+        {
+            "to": "attributes",
+            "from": "resourceAttributes.stream().filter(kv -> !kv.getKey().equals('tags'))"
+        },
+        {
+            "to": "tags",
+            "from": "getResourceAttribute(resourceAttributes, 'tags').getValue().getKvlistValue().getValuesList()"
+        }
+    ]
+}
