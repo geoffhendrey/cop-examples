@@ -1,0 +1,3 @@
+{
+    "name": "@INSTALL ${$sys.solutionId}"
+}
