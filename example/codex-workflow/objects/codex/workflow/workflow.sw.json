@@ -1,7 +1,7 @@
 {
   "id": "violations-counter",
   "name": "Violations counter",
-  "description": "Counts violations events for k8s workloads and apm services",
+  "description": "Counts health rule violation events for apm services and k8s workloads",
   "version": "1.0.0",
   "specVersion": "0.8",
   "events": [
@@ -9,7 +9,6 @@
       "name": "EventReceived",
       "type": "contracts:cloudevent/platform:event.enriched.v1",
       "kind": "consumed",
-      "dataOnly": true,
       "source": "platform"
     },
     {
@@ -22,17 +21,17 @@
     {
       "name": "checkType",
       "type": "expression",
-      "operation": "event.type = 'alerting:healthrule.violation' and (('k8s:workload' in event.entities.type) or ('apm:service' in event.entities.type))"
+      "operation": "event.type = 'alerting:healthrule.violation' and $reduce(event.entities.type, function($a, $v) { $v in ['k8s:deployment','k8s:statefulset','k8s:daemonset','k8s:unmanaged_replicaset','k8s:managed_replicaset','k8s:cronjob','k8s:unmanaged_job','k8s:managed_job','k8s:replication_controller','apm:service'] ? true : $a}, false)"
     },
     {
       "name": "createMeasurement",
       "type": "expression",
-      "operation": "{'entity': event.entities[0], 'type': 'codexworkflow:healthrule.violation.count', 'attributes': {'violation_severity': event.attributes.violation_severity}, 'measurements': [{'timestamp': event.attributes.event_time, 'intValue': event.attributes.'event_details.condition_details.violation_count'}]}"
+      "operation": "{'entity': event.entities[0], 'type': 'sampleworkflow:healthrule.violation.count', 'attributes': {'violation_severity': event.attributes.violation_severity}, 'measurements': [{'timestamp': event.attributes.event_time, 'intValue': event.attributes.'event_details.condition_details.violation_count'}]}"
     }
   ],
   "states": [
     {
-      "name": "EventReceived",
+      "name": "event-received",
       "type": "event",
       "onEvents": [
         {
@@ -40,7 +39,7 @@
             "EventReceived"
           ],
           "eventDataFilter": {
-            "toStateData": "${ event }"
+            "toStateData": "${ {event: data} }"
           },
           "actions": [
             {
@@ -54,14 +53,27 @@
           ]
         }
       ],
-      "end": {
-        "terminate": true,
-        "produceEvents": [
-          {
-            "eventRef": "CreateMeasurement",
-            "data": "${ measurement }"
+      "transition": "check-measurement"
+    },
+    {
+      "name": "check-measurement",
+      "type": "switch",
+      "dataConditions": [
+        {
+          "condition": "${ measurement != null }",
+          "end": {
+            "terminate": true,
+            "produceEvents": [
+              {
+                "eventRef": "CreateMeasurement",
+                "data": "${ measurement }"
+              }
+            ]
           }
-        ]
+        }
+      ],
+      "defaultCondition": {
+        "end": true
       }
     }
   ]

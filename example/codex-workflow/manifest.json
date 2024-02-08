@@ -1,13 +1,12 @@
 {
   "manifestVersion": "1.1.0",
-  "name": "codexworkflow",
-  "solutionVersion": "1.0.9",
+  "name": "sampleworkflow",
+  "solutionVersion": "1.0.14",
   "dependencies": [
     "fmm",
     "codex",
     "k8s",
-    "apm",
-    "alerting"
+    "apm"
   ],
   "description": "Health violation counter",
   "contact": "abokhand@cisco.com",
@@ -22,6 +21,10 @@
     {
       "type": "fmm:metric",
       "objectsFile": "objects/fmm/metric/count.json"
+    },
+    {
+      "type": "fmm:namespace",
+      "objectsFile": "objects/fmm/namespace/namespace.json"
     },
     {
       "type": "codex:workflow",

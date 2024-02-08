@@ -2,8 +2,6 @@ testFiles:
   - ${ $import($open('tests/workflow.test.yaml')) }
 results: >-
   ${ (
-    $sys := { 'solutionId': 'codexworkflow' };
-  
     $appendPath := function($prefix, $path) {
       $prefix & '/' & $path
     };

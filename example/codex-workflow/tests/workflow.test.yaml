@@ -7,8 +7,8 @@ testCases:
         in:
           event:
             entities:
-              - type: k8s:workload
-                id: k8s:deployment:UtS/BYZNO7y7aDUpXqRvHQ
+              - type: k8s:deployment
+                id: UtS/BYZNO7y7aDUpXqRvHQ
             timestamp: 1706911250000
             type: alerting:healthrule.violation
             attributes:
@@ -47,11 +47,12 @@ testCases:
     function: ../../${ workflow.functions[name="createMeasurement"].operation }
     tests:
       - name: test
+        manifest: ${ $import($open('manifest.json')) }
         in:
           event:
             entities:
-              - type: k8s:workload
-                id: k8s:deployment:UtS/BYZNO7y7aDUpXqRvHQ
+              - type: k8s:deployment
+                id: UtS/BYZNO7y7aDUpXqRvHQ
             timestamp: 1706911250000
             type: alerting:healthrule.violation
             attributes:
@@ -69,9 +70,9 @@ testCases:
               violation_start_time: 1706904360000
         out:
           entity:
-            id: k8s:deployment:UtS/BYZNO7y7aDUpXqRvHQ
-            type: k8s:workload
-          type: 'codexworkflow:healthrule.violation.count'
+            id: UtS/BYZNO7y7aDUpXqRvHQ
+            type: k8s:deployment
+          type: ../${ manifest.name & ':healthrule.violation.count'}
           attributes:
             violation_severity: CRITICAL
           measurements:
