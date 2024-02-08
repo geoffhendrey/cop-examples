@@ -58,22 +58,22 @@ It's the complete set of data provided by the datasource with 15 minute granular
 
 ```json
     "metricTypes": [
-        "meteodata:apparent_temperature",
-        "meteodata:cloud_cover",
-        "meteodata:is_day",
-        "meteodata:precipitation",
-        "meteodata:pressure_msl",
-        "meteodata:rain",
-        "meteodata:relative_humidity_2m",
-        "meteodata:showers",
-        "meteodata:snowfall",
-        "meteodata:surface_pressure",
-        "meteodata:temperature_2m",
-        "meteodata:weather_code",
-        "meteodata:wind_direction_10m",
-        "meteodata:wind_gusts_10m",
-        "meteodata:wind_speed_10m"
-    ]
+"meteodata:apparent_temperature",
+"meteodata:cloud_cover",
+"meteodata:is_day",
+"meteodata:precipitation",
+"meteodata:pressure_msl",
+"meteodata:rain",
+"meteodata:relative_humidity_2m",
+"meteodata:showers",
+"meteodata:snowfall",
+"meteodata:surface_pressure",
+"meteodata:temperature_2m",
+"meteodata:weather_code",
+"meteodata:wind_direction_10m",
+"meteodata:wind_gusts_10m",
+"meteodata:wind_speed_10m"
+]
 ```
 
 ## Zodiac function
@@ -85,9 +85,26 @@ as a Zodiac function. The algorithm could be summed as
 - extract latitudes and longitudes, call [open-meteo.com](open-meteo.com) and request current data
 - parse the response, convert it to open telemetry metric packet and sent it to the [platform](https://developer.cisco.com/docs/cisco-observability-platform/#!data-ingestion-introduction)
 
+Zodiac function is implemented as a Micronaut application in Java, sources are present in
+directory `open-meteo-zodiac`.
+
+There is little to be stated about the implementation itself, maybe only few facts:
+
+- Platform service hosts / URIs are supplied as environment variables, which are converted
+  to the Micronaut configuration in `src/main/resources/application.yaml`
+- Zodiac cron will trigger `POST /` request with appropriate headers, notably `layer-id` and
+  `layer-type`, where the first mentioned provides a context of a tenant - that's important,
+  since different tenants could have different `meteodata:meteoLocation` Knowledge objects
+  stored, meaning this context needs to be propagated to all calls done on behalf of the
+  tenant, including call to platform ingestion.
+- [Open Telemetry Java SDK](https://opentelemetry.io/docs/languages/java/) is used to report metrics, but it's not the "usual" high-level API.
+  In this case, since the function needs to report to multiple dynamic OTEL Resources, slight
+  lower level API is used - the function directly assembles OTEL packet and reports it to
+  platform ingestion endpoint. See [OTLP gRPC Exporter](https://javadoc.io/doc/io.opentelemetry/opentelemetry-exporter-otlp-metrics/latest/io/opentelemetry/exporter/otlp/metrics/OtlpGrpcMetricExporter.html) for more details.
+
 ## What's left to define
 
-There are some other objects defined in the solution, which are required to achieve 
+There are some other objects defined in the solution, which are required to achieve
 given task. One of those are `iam:Permission` and `iam:RoleToPermissionMapping`. Those
 define access for object of introduced knowledge type `meteodata:meteoLocation`, since
 the default access control is to "deny" any access. Here, the solution defines quite
@@ -99,6 +116,40 @@ the Zodiac function wouldn't be able to call any resource outside in the Interne
 
 Last but not least is the resource mapping configuration, which makes sure that ingested
 weather metrics are going to be mapped to proper entity.
+
+## Validation
+
+To validate that the solution is working as it should, query coudl be issued (the initial
+data grab could take up to 15 minutes)
+
+As with anything else, we can use fsoc
+
+```
+% fsoc uql "fetch attributes(location.name), metrics(meteodata:is_day) from entities(meteodata:location) options metricNullFill(false)"
+ location_name | metrics                                           
+               | source    | metrics                               
+               |           | timestamp                     | value 
+===================================================================
+ San Jose, CA  | meteodata | 2024-02-08 06:00:00 +0000 UTC | 0     
+               |           | 2024-02-08 06:15:00 +0000 UTC | 0     
+               |           | 2024-02-08 06:30:00 +0000 UTC | 0     
+               |           | 2024-02-08 06:45:00 +0000 UTC | 0     
+---------------+-----------+-------------------------------+-------
+ Tokyo, JP     | meteodata | 2024-02-08 06:00:00 +0000 UTC | 1     
+               |           | 2024-02-08 06:15:00 +0000 UTC | 1     
+               |           | 2024-02-08 06:30:00 +0000 UTC | 1     
+               |           | 2024-02-08 06:45:00 +0000 UTC | 1     
+---------------+-----------+-------------------------------+-------
+ Prague, CZ    | meteodata | 2024-02-08 06:00:00 +0000 UTC | 0     
+               |           | 2024-02-08 06:15:00 +0000 UTC | 0     
+               |           | 2024-02-08 06:30:00 +0000 UTC | 1     
+               |           | 2024-02-08 06:45:00 +0000 UTC | 1     
+---------------+-----------+-------------------------------+-------
+```
+
+There are also Cisco Observability Platform tools like Schema Browser, Query Builder
+and Metric Explorer, which do work quite well when discovering data for which the
+Observe UI is not available.
 
 ## Solution file structure
 
@@ -190,4 +241,3 @@ fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocati
 fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocation-object-examples/san-jose.json --layer-type=TENANT
 fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocation-object-examples/tokyo.json --layer-type=TENANT
 ```
-
