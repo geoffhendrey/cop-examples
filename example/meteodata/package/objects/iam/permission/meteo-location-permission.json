@@ -1,0 +1,39 @@
+{
+    "name": "meteoLocationPermission",
+    "description": "Permissions to handle meteo locations",
+    "displayName": "Permissions to handle meteo locations",
+    "actionAndResources": [
+        {
+            "action": {
+                "classification": "READ"
+            },
+            "resource": {
+                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
+            }
+        },
+        {
+            "action": {
+                "classification": "CREATE"
+            },
+            "resource": {
+                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
+            }
+        },
+        {
+            "action": {
+                "classification": "UPDATE"
+            },
+            "resource": {
+                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
+            }
+        },
+        {
+            "action": {
+                "classification": "DELETE"
+            },
+            "resource": {
+                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
+            }
+        }
+    ]
+}

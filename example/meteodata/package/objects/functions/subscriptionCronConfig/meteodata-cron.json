@@ -1,0 +1,5 @@
+{
+    "name": "meteodata-cron",
+    "function": "SOLUTION_PREFIXmeteodata",
+    "schedule": "5,20,35,50 * * * *"
+}

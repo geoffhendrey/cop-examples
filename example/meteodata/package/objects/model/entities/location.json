@@ -1,0 +1,54 @@
+{
+    "namespace": {
+        "name": "SOLUTION_PREFIXmeteodata",
+        "version": 1
+    },
+    "kind": "entity",
+    "name": "location",
+    "displayName": "location",
+    "lifecycleConfiguration": {
+        "purgeTtlInMinutes": 7200,
+        "retentionTtlInMinutes": 1440
+    },
+    "attributeDefinitions": {
+        "required": [
+            "location.name"
+        ],
+        "optimized": [],
+        "attributes": {
+            "location.name": {
+                "type": "string",
+                "description": "Location name"
+            },
+            "location.latitude": {
+                "description": "Latitude in decimal degres, positive number is the northern hemisphere, negative is the southern hemisphere",
+                "type": "double"
+            },
+            "location.longitude": {
+                "description": "Longitude in decimal degrees, positive number is the eastern hemisphere, negative is the western hemisphere",
+                "type": "double"
+            },
+            "location.elevation": {
+                "description": "Elevation",
+                "type": "double"
+            }
+        }
+    },
+    "metricTypes": [
+        "apparent_temperature",
+        "cloud_cover",
+        "is_day",
+        "precipitation",
+        "pressure_msl",
+        "rain",
+        "relative_humidity_2m",
+        "showers",
+        "snowfall",
+        "surface_pressure",
+        "temperature_2m",
+        "weather_code",
+        "wind_direction_10m",
+        "wind_gusts_10m",
+        "wind_speed_10m"
+    ]
+}

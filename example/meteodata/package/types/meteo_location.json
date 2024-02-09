@@ -1,0 +1,36 @@
+{
+    "name": "meteoLocation",
+    "allowedLayers": [
+        "SOLUTION",
+        "TENANT"
+    ],
+    "identifyingProperties": [
+        "/name"
+    ],
+    "jsonSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Knowledge type which represents a location to be scraped and ingested to the platform",
+        "description": "Location (longitude and latitude) for which the weather data should be collected",
+        "type": "object",
+        "required": [
+            "name",
+            "latitude",
+            "longitude"
+        ],
+        "properties": {
+            "name": {
+                "description": "Location name, will be used for entity name and must be unique",
+                "type": "string"
+            },
+            "latitude": {
+                "description": "Latitude in decimal degres, positive number is the northern hemisphere, negative is the southern hemisphere",
+                "type": "number"
+            },
+            "longitude": {
+                "description": "Longitude in decimal degrees, positive number is the eastern hemisphere, negative is the western hemisphere",
+                "type": "number"
+            }
+        },
+        "additionalProperties": false
+    }
+}

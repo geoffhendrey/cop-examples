@@ -1,0 +1,15 @@
+{
+    "namespace": {
+        "name": "SOLUTION_PREFIXmeteodata",
+        "version": 1
+    },
+    "kind": "metric",
+    "name": "temperature_2m",
+    "displayName": "temperature_2m",
+    "category": "current",
+    "contentType": "gauge",
+    "aggregationTemporality": "unspecified",
+    "isMonotonic": false,
+    "type": "double",
+    "unit": "{Celsius}"
+}
