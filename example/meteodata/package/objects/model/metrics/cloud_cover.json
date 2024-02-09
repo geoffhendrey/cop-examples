@@ -1,6 +1,6 @@
 {
     "namespace": {
-        "name": "meteodata",
+        "name": "SOLUTION_PREFIXmeteodata",
         "version": 1
     },
     "kind": "metric",
