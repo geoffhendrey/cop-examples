@@ -1,6 +1,6 @@
 {
     "manifestVersion": "1.0.0",
-    "name": "cop-example-rest",
+    "name": "<USER-NAME>restdemo",
     "solutionVersion": "1.0.0",
     "dependencies": ["zodiac"],
     "description": "Simple REST example on CO platform",

@@ -46,11 +46,11 @@ Packaging and publishing the image to a public container repository
 
 
 Build and run the container image.
-Please remeber to replace <USER-NAME> with your github username.
+Please remeber to replace <GITHUB-USER-NAME> with your github username.
 
 ```shell
-docker build -t  ghcr.io/ <USER-NAME>/cop-examples/restdemo:latest .
-docker run -t  ghcr.io/<USER-NAME>/cop-examples/restdemo:latest
+docker build -t  ghcr.io/ <GITHUB-USER-NAME>/cop-examples/restdemo:latest .
+docker run -t  ghcr.io/<GITHUB-USER-NAME>/cop-examples/restdemo:latest
 ```
 
 [Authenticating with container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry)
@@ -59,14 +59,14 @@ Login to github  container respository.
 
 
 ```shell
- echo <TOKEN> | docker login ghcr.io -u <USER-NAME> --password-stdin
+ echo <TOKEN> | docker login ghcr.io -u <GITHUB-USER-NAME> --password-stdin
 ```
 
 
 Push the image to the github registry or to any other public registry.
 
 ```shell
-docker -v push  ghcr.io/<USER-NAME>/cop-examples/restdemo:latest
+docker -v push  ghcr.io/<GITHUB-USER-NAME>/cop-examples/restdemo:latest
 ```
 
 Creating the solution package
@@ -80,28 +80,31 @@ The `package` folder contains the files required to create the solution.
     └── function.json
 ```
 
-Copy the `package` folder to a new folder `<USER-NAME>restdemo
+Copy the `package` folder to a new folder restdemo
 
 ```shell
-cp -R package <USER-NAME>restdemo
+cp -R package restdemo
 ```
+
 
 Edit the function.json file to use the image from your repository.
 
 ```json
 {
     "name": "example1",
-    "image": "ghcr.io/<USER-NAME>/cop-examples/restdemo:latest"
+    "image": "ghcr.io/<GITHUB-USER-NAME>/cop-examples/restdemo:latest"
 }
 ```
 
-Edit the manifest file to set the email attribute.
+
+Solution names should be unique on the plaform. Prefix the solution name in the manifest with your user name. 
+
 
 ```json
 {
     {
     "manifestVersion": "1.0.0",
-    "name": "cop-example-rest",
+    "name": "<USER-NAME>restdemo",
     "solutionVersion": "1.0.0",
     "dependencies": ["zodiac"],
     "description": "Simple REST example on CO platform",
@@ -119,7 +122,7 @@ Edit the manifest file to set the email attribute.
 }
 ```
 
-From the package folder, use fsoc command to push the package to the plaform.
+From the restdemo folder, use fsoc command to push the package to the plaform.
 
 ```shell
 fsoc solution push --stable
@@ -131,14 +134,33 @@ fsoc solution push --stable
  Successfully uploaded solution <USER-NAME>restdemo version 1.0.0 with tag stable.
  ``` 
 
- Subscribe to the newly installed solution
+ This will create a new REST api accesible with the scheme
 
+```shell
+https://<HOST>/rest/<SOLUTION-NAME>/<SERVICE-NAME>/*'
+
+```
+
+For this example, it will create two apis with URLs:
+
+```shell
+https://<TENANT-HOST-NAME>/rest/<USER-NAME>restdemo/example1/hello
+https://<TENANT-HOST-NAME>/rest/<USER-NAME>prrestdemo/example1/headers
+
+````
+
+ Subscribe to the newly installed solution using fsoc command:
  ```shell
  fsoc solution subscribe <USER-NAME>restdemo
  ```
 
-Use curl to execute a GET request on the newly deployed service
+All custom REST endpoints requires authentication and authorization.
+For authentication, copy the token present in the .fsoc file under your home directory and paste it as <TOKEN> in the below example
+
+Use curl to execute a GET request on the newly deployed service, and it should return a 200 response code with `hello` as the body
 
 ```shell
-curl --location 'https://<HOST>/rest/<SOLUTION-NAME>/<FUNCTION-NAME>/' --header 'Authorization: Bearerer <Token> ' -v
+curl --location 'https://<HOST>/rest/<SOLUTION-NAME>/<FUNCTION-NAME>/' --header 'Authorization: Bearerer <TOKEN> ' -v
+< HTTP/2 200
+hello
 ```
