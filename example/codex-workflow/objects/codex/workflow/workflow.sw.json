@@ -21,12 +21,12 @@
     {
       "name": "checkType",
       "type": "expression",
-      "operation": "event.type = 'alerting:healthrule.violation' and $reduce(event.entities.type, function($a, $v) { $v in ['k8s:deployment','k8s:statefulset','k8s:daemonset','k8s:unmanaged_replicaset','k8s:managed_replicaset','k8s:cronjob','k8s:unmanaged_job','k8s:managed_job','k8s:replication_controller','apm:service'] ? true : $a}, false)"
+      "operation": "data.type = 'alerting:healthrule.violation' and (\n    'k8s:deployment' in data.entities.type or \n    'k8s:statefulset' in data.entities.type or \n    'k8s:daemonset' in data.entities.type or \n    'k8s:cronjob' in data.entities.type or \n    'k8s:managed_job' in data.entities.type or\n    'apm:service' in data.entities.type\n)"
     },
     {
       "name": "createMeasurement",
       "type": "expression",
-      "operation": "{'entity': event.entities[0], 'type': 'sampleworkflow:healthrule.violation.count', 'attributes': {'violation_severity': event.attributes.violation_severity}, 'measurements': [{'timestamp': event.attributes.event_time, 'intValue': event.attributes.'event_details.condition_details.violation_count'}]}"
+      "operation": "{'entity': data.entities[0], 'type': 'sampleworkflow:healthrule.violation.count', 'attributes': {'violation_severity': data.attributes.violation_severity}, 'measurements': [{'timestamp': data.timestamp, 'intValue': $exists(data.attributes.'event_details.condition_details.violation_count') ? data.attributes.'event_details.condition_details.violation_count' : 1}]}"
     }
   ],
   "states": [
@@ -38,16 +38,11 @@
           "eventRefs": [
             "EventReceived"
           ],
-          "eventDataFilter": {
-            "toStateData": "${ {event: data} }"
-          },
           "actions": [
             {
               "name": "createMeasurement",
               "condition": "${ fn:checkType }",
-              "functionRef": {
-                "refName": "createMeasurement"
-              },
+              "functionRef": "createMeasurement",
               "actionDataFilter": {
                 "toStateData": "${ measurement }"
               }

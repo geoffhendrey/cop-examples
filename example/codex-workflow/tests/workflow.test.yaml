@@ -5,7 +5,7 @@ testCases:
     tests:
       - name: match
         in:
-          event:
+          data:
             entities:
               - type: k8s:deployment
                 id: UtS/BYZNO7y7aDUpXqRvHQ
@@ -27,7 +27,7 @@ testCases:
         out: true
       - name: event type not matched
         in:
-          event:
+          data:
             entities:
               - type: k8s:namespace
                 id: nRIoEU8xOVmMOr1bf1z7vA
@@ -36,7 +36,7 @@ testCases:
         out: false
       - name: entity type not matched
         in:
-          event:
+          data:
             entities:
               - type: k8s:namespace
                 id: nRIoEU8xOVmMOr1bf1z7vA
@@ -49,7 +49,7 @@ testCases:
       - name: test
         manifest: ${ $import($open('manifest.json')) }
         in:
-          event:
+          data:
             entities:
               - type: k8s:deployment
                 id: UtS/BYZNO7y7aDUpXqRvHQ
