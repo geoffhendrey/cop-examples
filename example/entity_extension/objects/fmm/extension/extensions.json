@@ -8,8 +8,8 @@
     "displayName": "Security risk score extension",
     "description": "Extends k8s:workload to add a security risk score metric",
     "extends": {
-      "k8s": [
-        "workload"
+      "apm": [
+        "service"
       ]
     },
     "metricTypes": [

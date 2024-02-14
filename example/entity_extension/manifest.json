@@ -4,14 +4,14 @@
     "solutionVersion": "1.0.0",
     "dependencies": [
       "fmm",
-      "k8s"
+      "apm"
     ],
     "description": "Tracks security risk score",
     "contact": "vishu123@cisco.com",
     "objects": [
       {
         "type": "fmm:extension",
-        "objectsFile": "objects/fmm/extension/k8s-workload.json"
+        "objectsFile": "objects/fmm/extension/extensions.json"
       },
       {
         "type": "fmm:metric",
