@@ -1,0 +1,7 @@
+{
+    "name": "client",
+    "image": "ghcr.io/p13r/cop-examples/client:v0.0.1",
+    "envvars": {
+        "GATEWAY_URL": "http://zodiac-queues-gateway.zodiac.svc.cluster.local:8080"
+    }
+}
