@@ -1,0 +1,77 @@
+{
+  "id": "violations-counter",
+  "name": "Violations counter",
+  "description": "Counts health rule violation events for apm services and k8s workloads",
+  "version": "1.0.0",
+  "specVersion": "0.8",
+  "events": [
+    {
+      "name": "EventReceived",
+      "type": "contracts:cloudevent/platform:event.enriched.v1",
+      "kind": "consumed",
+      "source": "platform"
+    },
+    {
+      "name": "CreateMeasurement",
+      "type": "contracts:cloudevent/platform:measurement.received.v1",
+      "kind": "produced"
+    }
+  ],
+  "functions": [
+    {
+      "name": "checkType",
+      "type": "expression",
+      "operation": "data.type = 'alerting:healthrule.violation' and (\n    'k8s:deployment' in data.entities.type or \n    'k8s:statefulset' in data.entities.type or \n    'k8s:daemonset' in data.entities.type or \n    'k8s:cronjob' in data.entities.type or \n    'k8s:managed_job' in data.entities.type or\n    'apm:service' in data.entities.type\n)"
+    },
+    {
+      "name": "createMeasurement",
+      "type": "expression",
+      "operation": "{'entity': data.entities[0], 'type': 'sampleworkflow:healthrule.violation.count', 'attributes': {'violation_severity': data.attributes.violation_severity}, 'measurements': [{'timestamp': data.timestamp, 'intValue': $exists(data.attributes.'event_details.condition_details.violation_count') ? data.attributes.'event_details.condition_details.violation_count' : 1}]}"
+    }
+  ],
+  "states": [
+    {
+      "name": "event-received",
+      "type": "event",
+      "onEvents": [
+        {
+          "eventRefs": [
+            "EventReceived"
+          ],
+          "actions": [
+            {
+              "name": "createMeasurement",
+              "condition": "${ fn:checkType }",
+              "functionRef": "createMeasurement",
+              "actionDataFilter": {
+                "toStateData": "${ measurement }"
+              }
+            }
+          ]
+        }
+      ],
+      "transition": "check-measurement"
+    },
+    {
+      "name": "check-measurement",
+      "type": "switch",
+      "dataConditions": [
+        {
+          "condition": "${ measurement != null }",
+          "end": {
+            "terminate": true,
+            "produceEvents": [
+              {
+                "eventRef": "CreateMeasurement",
+                "data": "${ measurement }"
+              }
+            ]
+          }
+        }
+      ],
+      "defaultCondition": {
+        "end": true
+      }
+    }
+  ]
+}

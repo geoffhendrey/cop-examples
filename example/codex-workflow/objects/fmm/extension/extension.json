@@ -1,0 +1,21 @@
+{
+  "kind": "extension",
+  "namespace": {
+    "name": "@INSTALL ${$sys.solutionId}",
+    "version": 1
+  },
+  "name": "healthrule.violation.extension",
+  "displayName": "Health rule violations count extension",
+  "description": "Extension that adds a health rule violations count metric to k8s:workload and apm:service",
+  "metricTypes": [
+    "@INSTALL ${$sys.solutionId & ':healthrule.violation.count'}"
+  ],
+  "extends": {
+    "k8s": [
+      "workload"
+    ],
+    "apm": [
+      "service"
+    ]
+  }
+}

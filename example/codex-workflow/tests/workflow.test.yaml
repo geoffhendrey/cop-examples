@@ -1,0 +1,80 @@
+workflow: ${ $import($open('objects/codex/workflow/workflow.sw.json')) }
+testCases:
+  - name: functions.checkType
+    function: ../../${ workflow.functions[name="checkType"].operation }
+    tests:
+      - name: match
+        in:
+          data:
+            entities:
+              - type: k8s:deployment
+                id: UtS/BYZNO7y7aDUpXqRvHQ
+            timestamp: 1706911250000
+            type: alerting:healthrule.violation
+            attributes:
+              violation_severity: CRITICAL
+              event_details.condition_details.violation_count: 2
+              event_time: 1706911260000
+              violation_id: 88JOkQyNP22VbCNaZJoGkA
+              violation_duration: 6900000
+              config_name: K8s Deployment Running vs Desired
+              event_id: xET0tH4lPP6GxkgpN5m8DQ
+              event_details.condition_details.metric_source: sys:derived:infra-agent
+              entity_type: k8s:deployment
+              event_type: 'Violation Continues: Critical'
+              violation_status: OPEN
+              violation_start_time: 1706904360000
+        out: true
+      - name: event type not matched
+        in:
+          data:
+            entities:
+              - type: k8s:namespace
+                id: nRIoEU8xOVmMOr1bf1z7vA
+          timestamp: 1706911250000
+          type: alerting:healthrule.violation
+        out: false
+      - name: entity type not matched
+        in:
+          data:
+            entities:
+              - type: k8s:namespace
+                id: nRIoEU8xOVmMOr1bf1z7vA
+            timestamp: 1706911250000
+            type: alerting:healthrule.violation
+        out: false
+  - name: functions.createMeasurement
+    function: ../../${ workflow.functions[name="createMeasurement"].operation }
+    tests:
+      - name: test
+        manifest: ${ $import($open('manifest.json')) }
+        in:
+          data:
+            entities:
+              - type: k8s:deployment
+                id: UtS/BYZNO7y7aDUpXqRvHQ
+            timestamp: 1706911250000
+            type: alerting:healthrule.violation
+            attributes:
+              violation_severity: CRITICAL
+              event_details.condition_details.violation_count: 2
+              event_time: 1706911260000
+              violation_id: 88JOkQyNP22VbCNaZJoGkA
+              violation_duration: 6900000
+              config_name: K8s Deployment Running vs Desired
+              event_id: xET0tH4lPP6GxkgpN5m8DQ
+              event_details.condition_details.metric_source: sys:derived:infra-agent
+              entity_type: k8s:deployment
+              event_type: 'Violation Continues: Critical'
+              violation_status: OPEN
+              violation_start_time: 1706904360000
+        out:
+          entity:
+            id: UtS/BYZNO7y7aDUpXqRvHQ
+            type: k8s:deployment
+          type: ../${ manifest.name & ':healthrule.violation.count'}
+          attributes:
+            violation_severity: CRITICAL
+          measurements:
+            - timestamp: 1706911260000
+              intValue: 2
