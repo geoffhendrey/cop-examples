@@ -1,0 +1,13 @@
+{
+  "name": "databasecredentialsRoleMappings",
+  "roles": [
+    "iam:configManager",
+    "iam:troubleshooter",
+    "iam:observer"
+  ],
+  "permissions": [
+    {
+      "id": "SOLUTION_PREFIXsecretexample:databaseCredentialsPermissions"
+    }
+  ]
+}
