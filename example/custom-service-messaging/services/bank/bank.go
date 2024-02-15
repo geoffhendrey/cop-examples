@@ -40,7 +40,7 @@ func audit(e string) {
 
 	event := cloudevents.NewEvent()
 	event.SetSource("s2sqdemo.bank")
-	event.SetType("s2sqdemo.audit")
+	event.SetType("s2sqdemo:audit")
 	event.SetData(cloudevents.ApplicationJSON, map[string]string{"balance": e})
 
 	ctx := cloudevents.ContextWithTarget(context.Background(), eventGateway)

@@ -1,7 +1,7 @@
 {
     "manifestVersion": "1.0.0",
     "name": "s2sqdemo",
-    "solutionVersion": "1.0.3",
+    "solutionVersion": "1.0.5",
     "dependencies": ["zodiac"],
     "description": "Service to Service Messaging demo",
     "contact": "<your-email-here>",
@@ -19,7 +19,7 @@
         },
         {
             "type": "zodiac:event",
-            "objectsDir": "objects/events"
+            "objectsDir": "objects/channels"
         },
         {
             "type": "zodiac:eventSubscription",

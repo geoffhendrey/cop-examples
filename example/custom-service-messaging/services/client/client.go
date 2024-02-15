@@ -34,7 +34,7 @@ func send(t *Transaction) {
 
 	event := cloudevents.NewEvent()
 	event.SetSource("s2sqdemo.client")
-	event.SetType("s2sqdemo.txn")
+	event.SetType("s2sqdemo:txn")
 	event.SetData(cloudevents.ApplicationJSON, t)
 
 	ctx := cloudevents.ContextWithTarget(context.Background(), eventGateway)
