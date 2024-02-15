@@ -75,7 +75,36 @@ chmod u+x *.sh
     fsoc knowledge get-type --type "<USERNAME>secretexample:databasecredentials"
     ```
 
-2. **Access Control**: Review the `permissions.json` and `role-to-permission-mappings.json` files in the `objects` directory. These files define the access controls for your knowledge objects, ensuring only authorized users can access or modify the database credentials.
+2. **Create new Knowledge Object**: Add a new knowledge object for your database credentials using the `fsoc knowledge create` command.
+   ```shell
+    fsoc knowledge create --type=<USERNAME>secretexample:databasecredentials --layer-type=TENANT --object-file=objects/example/dbcredentialexample.json
+    ```
+```
+
+3. **Fetch the object**: Use the `fsoc knowledge get` command to retrieve the knowledge object you created.
+
+    ```shell
+    fsoc knowledge get --type=sesergeesecretexample:databasecredentials --object-id=ProdDBCredentials --layer-type=TENANT
+    createdAt: "2024-02-15T21:38:32.915Z"
+    data:
+       host: prod.db.example.com
+       name: ProdDBCredentials
+       password: '**********'
+       port: 5432
+       username: prodUser
+    id: ProdDBCredentials
+    layerId: 2d4866c4-0a45-41ec-a534-011e5f4d970a
+    layerType: TENANT
+    objectMimeType: application/json
+    objectType: sesergeesecretexample:databasecredentials
+    patch: null
+    targetObjectId: null
+    updatedAt: "2024-02-15T21:38:32.915Z"
+    ```
+    Notic that the password is masked with asterisks which indicates it is stored as a secret.
+    
+   
+    
 
 ## Next Steps
 
