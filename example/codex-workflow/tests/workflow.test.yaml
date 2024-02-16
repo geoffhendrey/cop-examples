@@ -76,5 +76,5 @@ testCases:
           attributes:
             violation_severity: CRITICAL
           measurements:
-            - timestamp: 1706911260000
+            - timestamp: 1706911250000
               intValue: 2

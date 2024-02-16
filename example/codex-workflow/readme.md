@@ -340,13 +340,12 @@ That’s it!
 3. rename the solution in manifest.json
 4. check and validate the solution
    ```shell
-   fsoc solution check --all
-   fsoc solution validate
+   fsoc solution validate --tag=stable
    ```
 5. run local tests (see `tests/readme.md`)
 6. push the solution
    ```shell
-   fsoc solution push
+   fsoc solution push --tag=stable
    ```
 7. subscribe to this solution
    ```shell
@@ -356,12 +355,12 @@ That’s it!
    ```
    https://{your tenant}.observe.appdynamics.com/ui/cco/tools/melt/schema
    ``` 
-   and searching for sampleworkflow
+   and searching for `healthrule.violation.count`
 9. check that metric is being populated by navigating to **Query Builder**:
    ```
    https://{your tenant}.observe.appdynamics.com/ui/cco/tools/melt/query
    ``` 
-   and pasting the following UQL query:
+   and pasting the following UQL query (update sampleworkflow to your new solution id):
    ```
    SINCE now - 1h FETCH metrics('sampleworkflow:healthrule.violation.count') {timestamp, value} FROM entities(k8s:workload, apm:service)
    ```
