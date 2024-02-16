@@ -110,7 +110,35 @@ provided `awscredsexample.json` file contains an example of the knowledge object
     fsoc knowledge create --type=<USERNAME>awscreds:awscreds --layer-type=TENANT --object-file=objects/example/awscredsexample.json
     ```
 
-## Querying Your Knowledge Type
+## Building your Zodiac function
+you can skip these steps and use a pre-built docker image from the public docker registry. But these steps shows how to
+build the docker image for the zodiac function. The function is a simple nodejs function that fetches the AWS 
+credentials.
+```shell
+1. **Build the Zodiac function docker container**: 
+   ```shell
+   export V=0.0.5 && docker build -t aws-service-demo ./ --tag zhirafovod/aws-service-demo:$V
+   ```
+2. Publish the docker image to the public docker registry
+   ```shell
+   docker push zhirafovod/aws-service-demo:$V
+   ```
+3. **Point the Zodiac function to the right container**: 
+change the image in the `package/objects/zodiac/functions/aws-service-demo.json` to point to the newly built docker 
+image. 
+   ```json
+   {
+     "name": "SOLUTION_PREFIXawscreds-func",
+     "image": "registry.hub.docker.com/zhirafovod/aws-service-demo:0.0.5",
+     "scaleBounds": {
+        "lower": 1,
+        "upper": 1
+     }
+   }
+   ```
+4. Bump the version in `package/manifest.json` and repeat the steps to publish the solution.
+
+## Querying AWS Credentials
 
 1. **Query the Knowledge Type**: Use the FSOC CLI to retrieve the definition of your knowledge type:
     ```shell
