@@ -1,0 +1,12 @@
+{
+  "name": "awscredsRoleMappings",
+  "roles": [
+    "iam:configManager",
+    "iam:observer"
+  ],
+  "permissions": [
+    {
+      "id": "SOLUTION_PREFIXawscreds:awscredsPermissions"
+    }
+  ]
+}
