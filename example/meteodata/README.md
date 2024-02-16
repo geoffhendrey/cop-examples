@@ -54,22 +54,22 @@ It's the complete set of data provided by the datasource with 15 minute granular
 
 ```json
     "metricTypes": [
-"meteodata:apparent_temperature",
-"meteodata:cloud_cover",
-"meteodata:is_day",
-"meteodata:precipitation",
-"meteodata:pressure_msl",
-"meteodata:rain",
-"meteodata:relative_humidity_2m",
-"meteodata:showers",
-"meteodata:snowfall",
-"meteodata:surface_pressure",
-"meteodata:temperature_2m",
-"meteodata:weather_code",
-"meteodata:wind_direction_10m",
-"meteodata:wind_gusts_10m",
-"meteodata:wind_speed_10m"
-]
+       "meteodata:apparent_temperature",
+       "meteodata:cloud_cover",
+       "meteodata:is_day",
+       "meteodata:precipitation",
+       "meteodata:pressure_msl",
+       "meteodata:rain",
+       "meteodata:relative_humidity_2m",
+       "meteodata:showers",
+       "meteodata:snowfall",
+       "meteodata:surface_pressure",
+       "meteodata:temperature_2m",
+       "meteodata:weather_code",
+       "meteodata:wind_direction_10m",
+       "meteodata:wind_gusts_10m",
+       "meteodata:wind_speed_10m"
+    ]
 ```
 
 ## Zodiac function
