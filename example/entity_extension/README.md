@@ -1,6 +1,6 @@
 # Entity Extension Solution
 
-This example demonstrates how existing entities that model a particular domain can be extended without changing the original domain model. Each new domain that wants to add their perspective in terms of additional attributes and/or metrics can do so without the knowledge of the original solution developer. This is one of the many aspects of extensibility offered by COP. Each additional extension makes the existing entities further valuable to customers, showcasing the power of the platform ecosystem.
+This example demonstrates how existing entities that model a particular domain can be extended without changing the original domain model. Each new domain that wants to add their perspective in terms of additional attributes and/or metrics can do so without coordinating with the original solution developer. The changes modeled in the extension are only visible to subscribers of the extension solution. This is one of the many aspects of extensibility offered by COP. Each additional extension makes the existing entities further valuable to customers, showcasing the power of the platform ecosystem.
 
 In this example, we'll define a base solution with a single base_entity with two attributes and a metric. Another solution will extend the base_entity to add an additional attribute and a metric.
 
