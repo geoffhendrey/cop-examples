@@ -1,0 +1,28 @@
+melt:
+  - typename: "basesolution1:base_entity"
+    attributes:
+      telemetry.sdk.name: "entity_extension"
+      # required attributes
+      name: "test1"
+      base_attribute: 123
+      # extended attributes
+      extended_attribute: 456
+    metrics:
+      - typename: "base_metric"
+        contenttype: gauge
+        unit: "{base_metric}"
+        type: long
+  - typename: "basesolution1:base_entity"
+    attributes:
+      telemetry.sdk.name: "entity_extension"
+      # required attributes
+      name: "test2"
+      base_attribute: 1111
+      # extended attributes
+      extended_attribute: 2222
+    metrics:
+      # extended metrics
+      - typename: "extendedsolution1:extended_metric"
+        contenttype: gauge
+        unit: ""
+        type: long

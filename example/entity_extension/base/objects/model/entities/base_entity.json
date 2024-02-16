@@ -1,0 +1,32 @@
+{
+    "namespace": {
+        "name": "basesolution1",
+        "version": 1
+    },
+    "kind": "entity",
+    "name": "base_entity",
+    "displayName": "base_entity",
+    "attributeDefinitions": {
+        "required": [
+            "name"
+        ],
+        "optimized": [],
+        "attributes": {
+            "name": {
+                "type": "string",
+                "description": "The name of the base_entity"
+            },
+            "base_attribute" :{
+                "type": "long",
+                "description": "attribute on base entity"
+            }
+        }
+    },
+    "metricTypes": [
+        "base_metric"
+    ],
+    "lifecycleConfiguration": {
+        "purgeTtlInMinutes": 4200,
+        "retentionTtlInMinutes": 1440
+    }
+}

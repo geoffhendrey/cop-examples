@@ -1,0 +1,29 @@
+{
+    "manifestVersion": "1.1.0",
+    "name": "extendedsolution1",
+    "solutionVersion": "1.0.0",
+    "solutionType": "component",
+    "dependencies": [
+        "fmm",
+        "basesolution1"
+    ],
+    "description": "description of your solution",
+    "contact": "the email for this solution's point of contact",
+    "homepage": "the url for this solution's homepage",
+    "gitRepoUrl": "the url for the git repo holding your solution",
+    "readme": "the url for this solution's readme file",
+    "objects": [
+        {
+            "type": "fmm:namespace",
+            "objectsDir": "objects/model/namespaces"
+        },
+        {
+          "type": "fmm:extension",
+          "objectsFile": "objects/model/extensions/extensions.json"
+        },
+        {
+          "type": "fmm:metric",
+          "objectsFile": "objects/model/metrics/extended_metric.json"
+        }
+      ]
+}

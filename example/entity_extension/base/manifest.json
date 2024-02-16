@@ -1,0 +1,32 @@
+{
+    "manifestVersion": "1.1.0",
+    "name": "basesolution1",
+    "solutionVersion": "1.0.0",
+    "solutionType": "component",
+    "dependencies": [
+        "fmm"
+    ],
+    "description": "description of your solution",
+    "contact": "the email for this solution's point of contact",
+    "homepage": "the url for this solution's homepage",
+    "gitRepoUrl": "the url for the git repo holding your solution",
+    "readme": "the url for this solution's readme file",
+    "objects": [
+        {
+            "type": "fmm:namespace",
+            "objectsDir": "objects/model/namespaces"
+        },
+        {
+            "type": "fmm:entity",
+            "objectsDir": "objects/model/entities"
+        },
+        {
+            "type": "fmm:metric",
+            "objectsDir": "objects/model/metrics"
+        },
+        {
+            "type": "fmm:resourceMapping",
+            "objectsDir": "objects/model/resource-mappings"
+        }
+    ]
+}
