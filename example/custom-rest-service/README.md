@@ -102,7 +102,27 @@ Edit the function.json file to use the image from your repository.
 }
 ```
 
-All REST apis require authorization by default. Edit the iam/role-to-permission-mapping.json file to set the user name variable, so that the solution name is correct.
+All REST apis require authorization. Configuration for read permissions for the new REST api is present in the file iam/permissions.
+
+```json
+[
+    {
+      "name": "rootPermissions",
+      "displayName": "example1:helloPermissions",
+      "description": "root api",
+      "actionAndResources": [{
+        "action": {
+          "method": "GET",
+          "pathPattern": "/example1/hello/",
+          "classification": "READ",
+          "type": "HttpAction"
+        }
+      }]
+    }
+  ]
+```
+
+The file role-to-permission-mapping connects the perissions to specific roles granted to the user. Edit the iam/role-to-permission-mapping.json file to set the correct solution name
 
 ```json
 [
