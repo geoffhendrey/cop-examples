@@ -194,7 +194,12 @@ image.
    "objectType": "sesergeeawscreds:awscreds"
    }
    ```
-   Notice that the function could access the secret value of your AWS credentials.  
+   Notice that the function could access the secret value of your AWS credentials.
+
+   **Note**: The function above is using a token credential stoed in FSOC configuration file in `~/.fsoc` to authenticate to the 
+   platform. The token is used to make a request to the zodiac function REST API. If you have more than one profile in  
+    `~/.fsoc` you may want to either export `TOKEN` manually or adjust array number in `yq '.contexts[0].token` command. 
+
 
 ## Next Steps
 
