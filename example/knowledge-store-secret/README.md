@@ -30,7 +30,7 @@ The solution package is organized as follows:
 │   │   ├── permissions.json
 │   │   └── role-to-permission-mappings.json
 │   └── types
-│       └── databasecredentials.json
+│       └── awscredentials.json
 ├── push.sh
 ├── setSolutionPrefix.sh
 ├── status.sh
@@ -53,12 +53,12 @@ chmod u+x *.sh
 
 1. **Update the Solution Manifest**: Your solution folder, named `<USERNAME>secretexample`, contains the `manifest.json` file. Ensure your username replaces `SOLUTION_PREFIX` in the manifest file, setting the solution's name to your unique identifier.
 
-2. **Define the Knowledge Type**: Review the `databasecredentials.json` in the `types` directory. This file defines the structure for securely storing database credentials within the Knowledge Store.
+2. **Define the Knowledge Type**: Review the `awscredentials.json` in the `types` directory. This file defines the structure for securely storing database credentials within the Knowledge Store.
 
 3. **Add Database Credentials Object**: Use the command below to add a knowledge object for your database credentials. This command utilizes the provided `dbcredentialexample.json` as an example.
 
     ```shell
-    fsoc knowledge create --type=<USERNAME>secretexample:databasecredentials --layer-type=TENANT --object-file=objects/example/dbcredentialexample.json
+    fsoc knowledge create --type=<USERNAME>secretexample:awscredentials --layer-type=TENANT --object-file=objects/example/awscredentialsexample.json
     ```
 
 4. **Validate Your Solution**: Run `./validate.sh` to check for any errors in your solution package.
@@ -72,19 +72,18 @@ chmod u+x *.sh
 1. **Query Knowledge Type**: Use the FSOC CLI to retrieve the definition of your knowledge type:
 
     ```shell
-    fsoc knowledge get-type --type "<USERNAME>secretexample:databasecredentials"
+    fsoc knowledge get-type --type "<USERNAME>secretexample:awscredentials"
     ```
 
 2. **Create new Knowledge Object**: Add a new knowledge object for your database credentials using the `fsoc knowledge create` command.
    ```shell
-    fsoc knowledge create --type=<USERNAME>secretexample:databasecredentials --layer-type=TENANT --object-file=objects/example/dbcredentialexample.json
+    fsoc knowledge create --type=<USERNAME>secretexample:awscredentials --layer-type=TENANT --object-file=objects/example/awscredentialsexample.json
     ```
-```
 
 3. **Fetch the object**: Use the `fsoc knowledge get` command to retrieve the knowledge object you created.
 
     ```shell
-    fsoc knowledge get --type=sesergeesecretexample:databasecredentials --object-id=ProdDBCredentials --layer-type=TENANT
+    fsoc knowledge get --type=sesergeesecretexample:awscredentials --object-id=ProdDBCredentials --layer-type=TENANT
     createdAt: "2024-02-15T21:38:32.915Z"
     data:
        host: prod.db.example.com
@@ -96,7 +95,7 @@ chmod u+x *.sh
     layerId: 2d4866c4-0a45-41ec-a534-011e5f4d970a
     layerType: TENANT
     objectMimeType: application/json
-    objectType: sesergeesecretexample:databasecredentials
+    objectType: sesergeesecretexample:awscredentials
     patch: null
     targetObjectId: null
     updatedAt: "2024-02-15T21:38:32.915Z"

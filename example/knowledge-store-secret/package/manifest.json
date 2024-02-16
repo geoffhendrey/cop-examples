@@ -1,15 +1,15 @@
 {
   "manifestVersion": "1.1.0",
-  "name": "SOLUTION_PREFIXsecretexample",
+  "name": "SOLUTION_PREFIXawscredentials",
   "solutionVersion": "1.0.3",
   "dependencies": ["iam"],
-  "description": "network intrusion investigation",
+  "description": "aws credentials solution",
   "contact": "-",
   "homepage": "-",
   "gitRepoUrl": "-",
   "readme": "-",
   "types": [
-    "types/databasecredentials.json"
+    "types/awscredentials.json"
   ],
   "objects":[
     {

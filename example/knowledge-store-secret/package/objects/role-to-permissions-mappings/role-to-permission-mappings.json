@@ -1,5 +1,5 @@
 {
-  "name": "databasecredentialsRoleMappings",
+  "name": "awscredentialsRoleMappings",
   "roles": [
     "iam:configManager",
     "iam:troubleshooter",
@@ -7,7 +7,7 @@
   ],
   "permissions": [
     {
-      "id": "SOLUTION_PREFIXsecretexample:databaseCredentialsPermissions"
+      "id": "SOLUTION_PREFIXsecretexample:awscredentialsPermissions"
     }
   ]
 }
