@@ -7,4 +7,4 @@ if [ -z "$SOLUTION_PREFIX" ]; then
   echo "Warning: SOLUTION_PREFIX environment variable is not set."
   exit 1
 fi
-fsoc solution push --directory ${SOLUTION_PREFIX}awscreds --wait --tag=stable
+fsoc solution push --directory ${SOLUTION_PREFIX}awscreds --subscribe --wait --tag=stable

@@ -1,0 +1,18 @@
+{
+  "hosts": [
+    {
+      "name": "swapi",
+      "dnsName": "swapi.dev"
+    },
+    {
+      "name": "google",
+      "dnsName": "google.com"
+    }
+  ],
+  "functions": [
+    {
+      "name": "SOLUTION_PREFIXawscreds-func",
+      "solution": "SOLUTION_PREFIXawscreds"
+    }
+  ]
+}
