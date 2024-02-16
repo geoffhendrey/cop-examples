@@ -184,15 +184,12 @@ fsoc logs 'entities(meteodata:service)'
 
 ```
 .
-├── README.md
 ├── manifest.json
 ├── meteoConfigPatch
 │   └── meteoConfigPatch.json
 ├── meteoLocation-object-examples
-│   ├── north_pole.json
 │   ├── prague.json
 │   ├── san-jose.json
-│   ├── south_pole.json
 │   └── tokyo.json
 ├── objects
 │   ├── functions
@@ -214,7 +211,6 @@ fsoc logs 'entities(meteodata:service)'
 │       ├── entities
 │       │   ├── location.json
 │       │   └── service.json
-│       ├── events
 │       ├── metrics
 │       │   ├── apparent_temperature.json
 │       │   ├── cloud_cover.json
@@ -242,12 +238,12 @@ fsoc logs 'entities(meteodata:service)'
 
 ```
 
-The majority of a solution has been created with `fsoc`, adding reference commands
-which do replicate the structure. Some of the objects were added by hand, since
-`fsoc` doesn't support them, also all generated files have been modified to match
-the intended shape - `fsoc` provides an initial template, not the final result.
+The majority of a solution has been created with [`fsoc`](https://github.com/cisco-open/fsoc),
+adding reference commands which do replicate the structure. Some of the objects were
+added by hand, since `fsoc` doesn't support them, also all generated files have been modified
+to match the intended shape - `fsoc` provides an initial template, not the final result.
 
-```
+```bash
 fsoc solution init meteodata
 
 fsoc solution extend --add-knowledge meteo_location
@@ -270,16 +266,27 @@ fsoc solution extend --add-metric wind_speed_10m
 fsoc solution extend --add-metric wind_direction_10m
 fsoc solution extend --add-metric wind_gusts_10m
 
+# validate and push a solution
 fsoc solution validate --stable
 fsoc solution push --stable
 
+# subscribe
 fsoc solution subscribe meteodata
 
+# get meteoLocation objects registered for current tenant
 fsoc knowledge get-type --type meteodata:meteoLocation
 
+# add meteoLocation objects for current tenant
 fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocation-object-examples/prague.json --layer-type=TENANT
 fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocation-object-examples/san-jose.json --layer-type=TENANT
 fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocation-object-examples/tokyo.json --layer-type=TENANT
 
+# get metric data for registered locations
+fsoc uql "fetch attributes(location.name), metrics(meteodata:is_day) from entities(meteodata:location) options metricNullFill(false)"
+
+# configure logging of the zodiac function
 fsoc knowledge create-patch --type=meteodata:meteoConfig --target-object-id=meteodata:config --target-layer-type=TENANT --json-merge-patch --object-file=./meteoConfigPatch/meteoConfigPatch.json
+
+# get logs for the zodiac function
+fsoc logs 'entities(meteodata:service)'
 ```

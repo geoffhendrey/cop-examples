@@ -203,7 +203,7 @@ public class MeteoZodiacFunction {
                 meteoContext.setLogResource(
                         Resource.builder()
                                 .put("meteodata.name", "meteodata")
-                                .put("telemetry.sdk.name", "meteodata")
+                                .put("telemetry.sdk.name", "SOLUTION_PREFIX")
                                 .build());
             }
 
@@ -361,7 +361,7 @@ public class MeteoZodiacFunction {
                             .put("location.latitude", location.getLatitude())
                             .put("location.longitude", location.getLongitude())
                             .put("location.elevation", weatherData.getElevation())
-                            .put("telemetry.sdk.name", "meteodata")
+                            .put("telemetry.sdk.name", "SOLUTION_PREFIX")
                             .build();
 
                     var instant = Instant.parse(weatherData.getCurrent().getTime() + ":00Z");

@@ -8,7 +8,7 @@
                 "classification": "READ"
             },
             "resource": {
-                "type": "meteodata:meteoLocation"
+                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
             }
         },
         {
@@ -16,7 +16,7 @@
                 "classification": "CREATE"
             },
             "resource": {
-                "type": "meteodata:meteoLocation"
+                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
             }
         },
         {
@@ -24,7 +24,7 @@
                 "classification": "UPDATE"
             },
             "resource": {
-                "type": "meteodata:meteoLocation"
+                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
             }
         },
         {
@@ -32,7 +32,7 @@
                 "classification": "DELETE"
             },
             "resource": {
-                "type": "meteodata:meteoLocation"
+                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
             }
         },
         {
@@ -40,7 +40,7 @@
                 "classification": "READ"
             },
             "resource": {
-                "type": "meteodata:meteoConfig"
+                "type": "SOLUTION_PREFIXmeteodata:meteoConfig"
             }
         },
         {
@@ -48,7 +48,7 @@
                 "classification": "CREATE"
             },
             "resource": {
-                "type": "meteodata:meteoConfig"
+                "type": "SOLUTION_PREFIXmeteodata:meteoConfig"
             }
         },
         {
@@ -56,7 +56,7 @@
                 "classification": "UPDATE"
             },
             "resource": {
-                "type": "meteodata:meteoConfig"
+                "type": "SOLUTION_PREFIXmeteodata:meteoConfig"
             }
         },
         {
@@ -64,7 +64,7 @@
                 "classification": "DELETE"
             },
             "resource": {
-                "type": "meteodata:meteoConfig"
+                "type": "SOLUTION_PREFIXmeteodata:meteoConfig"
             }
         }
     ]

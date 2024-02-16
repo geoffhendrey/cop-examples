@@ -1,13 +1,13 @@
 {
     "namespace": {
-        "name": "meteodata",
+        "name": "SOLUTION_PREFIXmeteodata",
         "version": 1
     },
     "kind": "resourceMapping",
     "name": "meteodata_location_entity_mapping",
     "displayName": "Resource mapping configuration for the meteodata:location entity",
-    "entityType": "meteodata:location",
-    "scopeFilter": "'meteodata'.equals(getValue(resourceAttributes, 'telemetry.sdk.name').toLowerCase()) && containsAll(resourceAttributes, ['location.name'])",
+    "entityType": "SOLUTION_PREFIXmeteodata:location",
+    "scopeFilter": "'SOLUTION_PREFIXmeteodata'.equals(getValue(resourceAttributes, 'telemetry.sdk.name').toLowerCase()) && containsAll(resourceAttributes, ['location.name'])",
     "mappings": [
         {
             "to": "attributes",

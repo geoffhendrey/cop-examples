@@ -8,7 +8,7 @@
     ],
     "permissions": [
         {
-            "id": "meteodata:meteoLocationPermission"
+            "id": "SOLUTION_PREFIXmeteodata:meteoLocationPermission"
         }
     ]
 }
