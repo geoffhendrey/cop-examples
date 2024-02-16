@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.1.0",
   "name": "SOLUTION_PREFIXawscreds",
-  "solutionVersion": "1.0.2",
+  "solutionVersion": "1.0.8",
   "dependencies": ["iam"],
   "description": "aws credentials solution",
   "contact": "-",
@@ -14,11 +14,19 @@
   "objects":[
     {
       "type": "iam:Permission",
-      "objectsDir": "objects/permissions"
+      "objectsDir": "objects/iam/permissions"
     },
     {
       "type": "iam:RoleToPermissionMapping",
-      "objectsDir": "objects/role-to-permissions-mappings"
+      "objectsDir": "objects/iam/role-to-permissions-mappings"
+    },
+    {
+      "type": "zodiac:function",
+      "objectsDir": "objects/zodiac/functions"
+    },
+    {
+      "type": "zodiac:egressHosts",
+      "objectsDir": "objects/zodiac/egressHosts"
     }
   ]
 }

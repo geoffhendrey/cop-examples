@@ -107,11 +107,28 @@ chmod u+x *.sh
    ```
     Notic that the password is masked with asterisks which indicates it is stored as a secret.
 4. **Fetch the secret**
+    
     ```shell
-   export TOKEN=`yq '.contexts[0].tokcludetags: false' -H 'Layer-Id: 2d4866c4-0a45-41ec-a534-011e5f4d970a' -H 'Layer-Type: TENANT' 'https://arch3.saas.appd-test.com/knowledge-store/v1/objects/sesergeeawscreds:awscreds/MY_AWS_ACCESS_KEY_ID' -s | jq
+   fsoc login ; export TOKEN=`yq '.contexts[0].token' ~/.fsoc` ; curl -X 'GET' -H 'appd-cpty: SOLUTION' -H 'Accept: application/json' -H "Authorization: Bearer $TOKEN" -H 'Includetags: false' -H 'Layer-Id: 2d4866c4-0a45-41ec-a534-011e5f4d970a' -H 'Layer-Type: TENANT' 'https://arch3.saas.appd-test.com/knowledge-store/v1/objects/sesergeeawscreds:awscreds/MY_AWS_ACCESS_KEY_ID' -s | jq
+{
+"layerType": "TENANT",
+"id": "MY_AWS_ACCESS_KEY_ID",
+"layerId": "2d4866c4-0a45-41ec-a534-011e5f4d970a",
+"data": {
+"id": "MY_AWS_ACCESS_KEY_ID",
+"key": "MY_AWS_SECRET_ACCESS_KEY",
+"region": "us-west-2"
+},
+"objectMimeType": "application/json",
+"targetObjectId": null,
+"patch": null,
+"createdAt": "2024-02-16T01:38:57.800Z",
+"updatedAt": "2024-02-16T01:38:57.800Z",
+"objectType": "sesergeeawscreds:awscreds"
+}
    ```
 ## Next Steps
 
-Congratulations on deploying your Database Credentials Management Solution! You've learned how to securely manage sensitive information using the Cisco Observability Platform. To further customize or update your solution, remember to increment the `solutionVersion` in your `manifest.json` before redeploying.
+Congratulations on deploying your AWS Credentials Management Solution! You've learned how to securely manage sensitive information using the Cisco Observability Platform.
 
 ```

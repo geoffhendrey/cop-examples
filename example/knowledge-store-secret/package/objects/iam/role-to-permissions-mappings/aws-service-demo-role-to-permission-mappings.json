@@ -1,0 +1,17 @@
+[
+  {
+    "name": "awsServiceDemoAPIs",
+    "roles": [
+      "iam:observer",
+      "iam:troubleshooter",
+      "iam:configManager",
+      "iam:tenantAdmin"
+    ],
+    "permissions": [
+      {
+        "id": "SOLUTION_PREFIXawscreds:rootAPI",
+        "id": "SOLUTION_PREFIXawscreds:credsAPI"
+      }
+    ]
+  }
+]
