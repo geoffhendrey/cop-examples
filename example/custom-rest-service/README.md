@@ -102,6 +102,27 @@ Edit the function.json file to use the image from your repository.
 }
 ```
 
+All REST apis require authorization by default. Edit the iam/role-to-permission-mapping.json file to set the user name variable, so that the solution name is correct.
+
+```json
+[
+    {
+      "name": "restdemo",
+      "roles": [
+        "iam:observer",
+        "iam:troubleshooter",
+        "iam:configManager",
+        "iam:tenantAdmin"
+      ],
+      "permissions": [
+        {
+          "id": "<USER-NAME>restdemo:rootPermissions"
+        }
+      ]
+    }
+  ]
+```
+
 
 Solution names should be unique on the plaform. Prefix the solution name in the manifest with your user name. 
 
