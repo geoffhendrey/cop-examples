@@ -340,13 +340,12 @@ That’s it!
 3. rename the solution in manifest.json
 4. check and validate the solution
    ```shell
-   fsoc solution check --all
-   fsoc solution validate
+   fsoc solution validate --tag=stable
    ```
 5. run local tests (see `tests/readme.md`)
 6. push the solution
    ```shell
-   fsoc solution push
+   fsoc solution push --tag=stable
    ```
 7. subscribe to this solution
    ```shell
