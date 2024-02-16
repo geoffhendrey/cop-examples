@@ -7,40 +7,38 @@ import io.micronaut.serde.annotation.Serdeable;
 
 @Introspected
 @Serdeable
-public class KnowledgeLocation {
+public class Config {
 
     private final String name;
-    private final double latitude;
-    private final double longitude;
+    private final LogLevel logLevel;
 
     @JsonCreator
-    public KnowledgeLocation(
+    public Config(
             @JsonProperty("name") String name,
-            @JsonProperty("latitude") double latitude,
-            @JsonProperty("longitude") double longitude) {
+            @JsonProperty("logLevel") String logLevel) {
         this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.logLevel = LogLevel.valueOf(logLevel.toUpperCase());
     }
 
     public String getName() {
         return name;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public LogLevel getLogLevel() {
+        return logLevel;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public enum LogLevel {
+        OFF,
+        INFO,
+        DEBUG
     }
 
     @Override
     public String toString() {
-        return "KnowledgeLocation{" +
+        return "Config{" +
                 "name='" + name + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
+                ", logLevel=" + logLevel +
                 '}';
     }
 }

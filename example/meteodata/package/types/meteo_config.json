@@ -1,0 +1,36 @@
+{
+    "name": "meteoConfig",
+    "allowedLayers": [
+        "SOLUTION",
+        "TENANT"
+    ],
+    "allowObjectFragments": true,
+    "identifyingProperties": [
+        "/name"
+    ],
+    "jsonSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "config knowledge type",
+        "type": "object",
+        "description": "Meteo Configuration. There ",
+        "additionalProperties": false,
+        "required": [
+            "name"
+        ],
+        "properties": {
+            "name": {
+                "type": "string",
+                "description": "This type will have only single object, but the object can be patched on the tenant layer if needed.",
+                "const": "config"
+            },
+            "logLevel": {
+                "type": "string",
+                "enum": [
+                    "OFF",
+                    "INFO",
+                    "DEBUG"
+                ]
+            }
+        }
+    }
+}

@@ -7,14 +7,7 @@ netty:
   default:
     allocator:
       max-order: 3
-otel:
-#  metrics:
-#    exporter: otlp
-#  logs:
-#    exporter: otlp, logging
-#  traces:
-#    exporter: otlp, logging
-restotelproxy:
+meteo-zodiac:
   cluster-name: ${APPD_CLUSTER_NAME:}
   json-store-url: ${APPD_JSON_STORE_URL:}
   metrics-url: ${APPD_METRICS_URL:}

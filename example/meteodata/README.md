@@ -22,7 +22,7 @@ which the weather data will be collected will be stored in the [Knowledge Store]
 For that, the Meteodata solution defines a type `meteodata:meteoLocation`
 
 ```json
-# example/meteodata/package/types/meteo_location.json
+# package/types/meteo_location.json
 ```
 
 `meteoLocation` type is pretty simple, it defines `name`, `latitude` and `longitude`,
@@ -48,7 +48,7 @@ Each configured location is represented by an [entity](https://developer.cisco.c
 defined as
 
 ```json
-# example/meteodata/package/objects/model/entities/location.json
+# package/objects/model/entities/location.json
 ```
 
 The entity itself copies the knowledge object referenced above, adds elevation and defines
@@ -85,7 +85,7 @@ as a Zodiac function. The algorithm could be summed as
 - extract latitudes and longitudes, call [open-meteo.com](open-meteo.com) and request current data
 - parse the response, convert it to open telemetry metric packet and sent it to the [platform](https://developer.cisco.com/docs/cisco-observability-platform/#!data-ingestion-introduction)
 
-Zodiac function is implemented as a Micronaut application in Java, sources are present in
+Zodiac function is implemented as a Micronaut application in Java (version 21), sources are present in
 directory `open-meteo-zodiac`.
 
 There is little to be stated about the implementation itself, maybe only few facts:
@@ -151,55 +151,103 @@ There are also Cisco Observability Platform tools like Schema Browser, Query Bui
 and Metric Explorer, which do work quite well when discovering data for which the
 Observe UI is not available.
 
+## Debugging
+
+As with anything which involves any amount of source code, there might be bugs and
+zodiac function included as part of this solution is not an exception. During the time
+of writing this example there wasn't a good support for accessing logs emitted by the
+function added in a solution, but that doesn't stop us from writing it by ourselves,
+we are working with monitoring platform which can handle logs.
+
+The only thing to do here is to report them directly to the tenants, similarly as with
+the open-meteo metrics.
+
+As any logging mechanism, there should be also a configuration, which would say what should
+be logged and also be able to turn it off.
+
+For that, another Knowledge type has been introduced: `meteodata:meteoConfig`
+
+```json
+# package/types/meteo_config.json
+```
+
+This is designed to have only a single object, defined as 
+
+```json
+# package/meteodata/objects/meteodata/meteoConfig/meteoConfig.json
+```
+
+which also sets the `logLevel` property to `OFF`, meaning logging is not forwarded to the platform by default.
+
+Tenants subscribed to this solution can create a "fragment", basically a patch on a `TENANT` layer, using which
+the `logLevel` property could be changed to either `INFO` or `DEBUG`, based on the needed level of insight.
+
+Logs could be then retrieved conveniently by `fsoc` using following command:
+
+```
+fsoc logs 'entities(meteodata:service)'
+```
+
 ## Solution file structure
 
 ```
 .
 ├── README.md
-├── meteoLocation-objects-examples
+├── manifest.json
+├── meteoConfigPatch
+│   └── meteoConfigPatch.json
+├── meteoLocation-object-examples
+│   ├── north_pole.json
 │   ├── prague.json
 │   ├── san-jose.json
+│   ├── south_pole.json
 │   └── tokyo.json
-└── package
-    ├── manifest.json
-    ├── objects
-    │   ├── functions
-    │   │   ├── egressHosts
-    │   │   │   └── egress.json
-    │   │   ├── function
-    │   │   │   └── meteodata.json
-    │   │   └── subscriptionCronConfig
-    │   │       └── meteodata-cron.json
-    │   ├── iam
-    │   │   ├── permission
-    │   │   │   └── meteo-location-permission.json
-    │   │   └── roleToPermissionMapping
-    │   │       └── meteo-permission-mapping.json
-    │   └── model
-    │       ├── entities
-    │       │   └── location.json
-    │       ├── metrics
-    │       │   ├── apparent_temperature.json
-    │       │   ├── cloud_cover.json
-    │       │   ├── is_day.json
-    │       │   ├── precipitation.json
-    │       │   ├── pressure_msl.json
-    │       │   ├── rain.json
-    │       │   ├── relative_humidity_2m.json
-    │       │   ├── showers.json
-    │       │   ├── snowfall.json
-    │       │   ├── surface_pressure.json
-    │       │   ├── temperature_2m.json
-    │       │   ├── weather_code.json
-    │       │   ├── wind_direction_10m.json
-    │       │   ├── wind_gusts_10m.json
-    │       │   └── wind_speed_10m.json
-    │       ├── namespaces
-    │       │   └── meteodata.json
-    │       └── resource-mappings
-    │           └── location-resourceMapping.json
-    └── types
-        └── meteo_location.json
+├── objects
+│   ├── functions
+│   │   ├── egressHosts
+│   │   │   └── egress.json
+│   │   ├── function
+│   │   │   └── meteodata.json
+│   │   └── subscriptionCronConfig
+│   │       └── meteodata-cron.json
+│   ├── iam
+│   │   ├── permission
+│   │   │   └── meteo-location-permission.json
+│   │   └── roleToPermissionMapping
+│   │       └── meteo-permission-mapping.json
+│   ├── meteodata
+│   │   └── meteoConfig
+│   │       └── meteoConfig.json
+│   └── model
+│       ├── entities
+│       │   ├── location.json
+│       │   └── service.json
+│       ├── events
+│       ├── metrics
+│       │   ├── apparent_temperature.json
+│       │   ├── cloud_cover.json
+│       │   ├── is_day.json
+│       │   ├── precipitation.json
+│       │   ├── pressure_msl.json
+│       │   ├── rain.json
+│       │   ├── relative_humidity_2m.json
+│       │   ├── showers.json
+│       │   ├── snowfall.json
+│       │   ├── surface_pressure.json
+│       │   ├── temperature_2m.json
+│       │   ├── weather_code.json
+│       │   ├── wind_direction_10m.json
+│       │   ├── wind_gusts_10m.json
+│       │   └── wind_speed_10m.json
+│       ├── namespaces
+│       │   └── meteodata.json
+│       └── resource-mappings
+│           ├── location-resourceMapping.json
+│           └── service-resourceMapping.json
+└── types
+    ├── meteo_config.json
+    └── meteo_location.json
+
 ```
 
 The majority of a solution has been created with `fsoc`, adding reference commands
@@ -240,4 +288,6 @@ fsoc knowledge get-type --type meteodata:meteoLocation
 fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocation-object-examples/prague.json --layer-type=TENANT
 fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocation-object-examples/san-jose.json --layer-type=TENANT
 fsoc knowledge create --type=meteodata:meteoLocation --object-file=./meteoLocation-object-examples/tokyo.json --layer-type=TENANT
+
+fsoc knowledge create-patch --type=meteodata:meteoConfig --target-object-id=meteodata:config --target-layer-type=TENANT --json-merge-patch --object-file=./meteoConfigPatch/meteoConfigPatch.json
 ```

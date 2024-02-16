@@ -1,6 +1,6 @@
 {
     "namespace": {
-        "name": "SOLUTION_PREFIXmeteodata",
+        "name": "meteodata",
         "version": 1
     },
     "kind": "entity",
@@ -21,7 +21,7 @@
                 "description": "Location name"
             },
             "location.latitude": {
-                "description": "Latitude in decimal degres, positive number is the northern hemisphere, negative is the southern hemisphere",
+                "description": "Latitude in decimal degrees, positive number is the northern hemisphere, negative is the southern hemisphere",
                 "type": "double"
             },
             "location.longitude": {

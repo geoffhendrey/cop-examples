@@ -9,13 +9,13 @@ import java.util.List;
 
 @Introspected
 @Serdeable
-public class KnowledgeResponseWrapper {
+public class LocationResponseWrapper {
 
     private final List<Item> items;
     private final int total;
 
     @JsonCreator
-    public KnowledgeResponseWrapper(
+    public LocationResponseWrapper(
             @JsonProperty("items") List<Item> items,
             @JsonProperty("total") int total) {
         this.items = items;
@@ -34,15 +34,15 @@ public class KnowledgeResponseWrapper {
     @Serdeable
     public static class Item {
 
-        private final KnowledgeLocation knowledgeLocation;
+        private final Location location;
 
         @JsonCreator
-        public Item(@JsonProperty("data") KnowledgeLocation knowledgeLocation) {
-            this.knowledgeLocation = knowledgeLocation;
+        public Item(@JsonProperty("data") Location location) {
+            this.location = location;
         }
 
-        public KnowledgeLocation getKnowledgeLocation() {
-            return knowledgeLocation;
+        public Location getKnowledgeLocation() {
+            return location;
         }
     }
 }

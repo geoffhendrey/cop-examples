@@ -8,7 +8,7 @@
                 "classification": "READ"
             },
             "resource": {
-                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
+                "type": "meteodata:meteoLocation"
             }
         },
         {
@@ -16,7 +16,7 @@
                 "classification": "CREATE"
             },
             "resource": {
-                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
+                "type": "meteodata:meteoLocation"
             }
         },
         {
@@ -24,7 +24,7 @@
                 "classification": "UPDATE"
             },
             "resource": {
-                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
+                "type": "meteodata:meteoLocation"
             }
         },
         {
@@ -32,7 +32,39 @@
                 "classification": "DELETE"
             },
             "resource": {
-                "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
+                "type": "meteodata:meteoLocation"
+            }
+        },
+        {
+            "action": {
+                "classification": "READ"
+            },
+            "resource": {
+                "type": "meteodata:meteoConfig"
+            }
+        },
+        {
+            "action": {
+                "classification": "CREATE"
+            },
+            "resource": {
+                "type": "meteodata:meteoConfig"
+            }
+        },
+        {
+            "action": {
+                "classification": "UPDATE"
+            },
+            "resource": {
+                "type": "meteodata:meteoConfig"
+            }
+        },
+        {
+            "action": {
+                "classification": "DELETE"
+            },
+            "resource": {
+                "type": "meteodata:meteoConfig"
             }
         }
     ]

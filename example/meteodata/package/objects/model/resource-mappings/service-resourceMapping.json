@@ -4,10 +4,10 @@
         "version": 1
     },
     "kind": "resourceMapping",
-    "name": "meteodata_location_entity_mapping",
-    "displayName": "Resource mapping configuration for the meteodata:location entity",
-    "entityType": "meteodata:location",
-    "scopeFilter": "'meteodata'.equals(getValue(resourceAttributes, 'telemetry.sdk.name').toLowerCase()) && containsAll(resourceAttributes, ['location.name'])",
+    "name": "meteodata_service_entity_mapping",
+    "displayName": "Resource mapping configuration for the meteodata:service entity",
+    "entityType": "meteodata:service",
+    "scopeFilter": "'meteodata'.equals(getValue(resourceAttributes, 'telemetry.sdk.name').toLowerCase()) && containsAll(resourceAttributes, ['meteodata.name'])",
     "mappings": [
         {
             "to": "attributes",

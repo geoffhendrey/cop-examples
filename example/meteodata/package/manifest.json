@@ -1,12 +1,13 @@
 {
     "manifestVersion": "1.1.0",
-    "name": "SOLUTION_PREFIXmeteodata",
-    "solutionVersion": "0.0.38",
+    "name": "meteodata",
+    "solutionVersion": "0.1.0",
     "solutionType": "component",
     "dependencies": [
         "fmm",
         "zodiac",
-        "iam"
+        "iam",
+        "logs"
     ],
     "description": "Description for retrieving weather data",
     "contact": "the email for this solution's point of contact",
@@ -49,9 +50,14 @@
         {
             "type": "iam:RoleToPermissionMapping",
             "objectsDir": "objects/iam/roleToPermissionMapping"
+        },
+        {
+            "type": "meteodata:meteoConfig",
+            "objectsDir": "objects/meteodata/meteoConfig"
         }
     ],
     "types": [
-        "types/meteo_location.json"
+        "types/meteo_location.json",
+        "types/meteo_config.json"
     ]
 }
