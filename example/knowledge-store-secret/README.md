@@ -1,13 +1,17 @@
-```
 # AWS Credentials Management Solution
 
 This guide outlines the steps to deploy a solution package for securely managing credentials within the Cisco Observability Platform. The solution package includes a new knowledge type for securely storing aws credentials.
 
-  * [Initial Setup](#initial-setup)
+<!-- TOC -->
+  * [Learning Objectives](#learning-objectives)
+  * [AWS Credentials Example overview](#aws-credentials-example-overview)
+  * [Install required tools](#install-required-tools-)
+  * [Configure FSOC CLI](#configure-fsoc-cli-)
+  * [Solution structure](#solution-structure)
   * [Deploying Your Solution](#deploying-your-solution)
   * [Querying Your Knowledge Type](#querying-your-knowledge-type)
   * [Next Steps](#next-steps)
-
+<!-- TOC -->
 
 ## Learning Objectives
 
@@ -117,11 +121,11 @@ provided `awscredsexample.json` file contains an example of the knowledge object
    ```shell
     fsoc knowledge create --type=sesergeeawscreds:awscreds --layer-type=TENANT --object-file=<USERNAME>awscreds/objects/example/awscredsexample.json
     ```
-This will create a new knowledge object for your AWS Credentials.
+   This will create a new knowledge object for your AWS Credentials.
 
 3. **Fetch the object**: Use the `fsoc knowledge get` command to retrieve the knowledge object you created.
 
-    ```shell
+   ```shell
    fsoc knowledge get --type=sesergeeawscreds:awscreds --layer-type=TENANT --object-id=MY_AWS_ACCESS_KEY_ID
    createdAt: "2024-02-16T01:38:57.800Z"
    data:
@@ -137,33 +141,32 @@ This will create a new knowledge object for your AWS Credentials.
    targetObjectId: null
    updatedAt: "2024-02-16T01:38:57.800Z"
    ```
-Notice that the password is masked with asterisks which indicates it is stored as a secret. The secret value can only be 
-fetched from a zodiac function environment.  
+   Notice that the password is masked with asterisks which indicates it is stored as a secret. The secret value can only be 
+   fetched from a zodiac function environment.  
 
 4. **Query the object from a zodiac function**
-Provided function fetches the AWS credentials from the knowledge store to show how the secrets can be used in a zodiac 
-function.
-
-    ```shell
-export TOKEN=`yq '.contexts[0].token' ~/.fsoc` ; curl -X POST -d '{"id": "sesergeeawscreds:awscreds/MY_AWS_ACCESS_KEY_ID"}' --header "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json'  https://arch3.saas.appd-test.com/rest/sesergeeawscreds/sesergeeawscreds-func -s | jq
-{
-"layerType": "TENANT",
-"id": "MY_AWS_ACCESS_KEY_ID",
-"layerId": "2d4866c4-0a45-41ec-a534-011e5f4d970a",
-"data": {
-"id": "MY_AWS_ACCESS_KEY_ID",
-"key": "MY_AWS_SECRET_ACCESS_KEY",
-"region": "us-west-2"
-},
-"objectMimeType": "application/json",
-"targetObjectId": null,
-"patch": null,
-"createdAt": "2024-02-16T01:38:57.800Z",
-"updatedAt": "2024-02-16T01:38:57.800Z",
-"objectType": "sesergeeawscreds:awscreds"
-}
+   Provided function fetches the AWS credentials from the knowledge store to show how the secrets can be used in a zodiac 
+   function.
+   ```shell
+   export TOKEN=`yq '.contexts[0].token' ~/.fsoc` ; curl -X POST -d '{"id": "sesergeeawscreds:awscreds/MY_AWS_ACCESS_KEY_ID"}' --header "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json'  https://arch3.saas.appd-test.com/rest/sesergeeawscreds/sesergeeawscreds-func -s | jq
+   {
+   "layerType": "TENANT",
+   "id": "MY_AWS_ACCESS_KEY_ID",
+   "layerId": "2d4866c4-0a45-41ec-a534-011e5f4d970a",
+   "data": {
+   "id": "MY_AWS_ACCESS_KEY_ID",
+   "key": "MY_AWS_SECRET_ACCESS_KEY",
+   "region": "us-west-2"
+   },
+   "objectMimeType": "application/json",
+   "targetObjectId": null,
+   "patch": null,
+   "createdAt": "2024-02-16T01:38:57.800Z",
+   "updatedAt": "2024-02-16T01:38:57.800Z",
+   "objectType": "sesergeeawscreds:awscreds"
+   }
    ```
-Notice that the function could access the secret value of your AWS credentials.  
+   Notice that the function could access the secret value of your AWS credentials.  
 
 ## Next Steps
 
