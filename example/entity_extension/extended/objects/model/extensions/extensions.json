@@ -1,10 +1,10 @@
 {
     "kind": "extension",
     "namespace": {
-      "name": "extendedsolution1",
+      "name": "SOLUTION_PREFIXextendedsolution",
       "version": 1
     },
-    "name": "extendedsolution1.extensions",
+    "name": "SOLUTION_PREFIXextendedsolution.extensions",
     "displayName": "Example extension of base solution",
     "description": "Extends base solution to add a metric and an attribute",
     "extends": {
@@ -13,11 +13,11 @@
       ]
     },
     "metricTypes": [
-        "extendedsolution1:extended_metric"
+        "SOLUTION_PREFIXextendedsolution:extended_metric"
     ],
     "attributeDefinitions": {
       "attributes": {
-        "extended_attribute": {
+        "SOLUTION_PREFIXextendedsolution:extended_attribute": {
           "type": "long"
         }
       }

@@ -1,6 +1,6 @@
 {
     "namespace": {
-        "name": "extendedsolution1",
+        "name": "SOLUTION_PREFIXextendedsolution",
         "version": 1
     },
     "kind": "metric",

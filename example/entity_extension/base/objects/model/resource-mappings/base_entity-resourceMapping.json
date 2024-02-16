@@ -1,6 +1,6 @@
 {
     "namespace": {
-        "name": "basesolution1",
+        "name": "SOLUTION_PREFIXbasesolution",
         "version": 1
     },
     "kind": "resourceMapping",

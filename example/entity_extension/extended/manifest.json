@@ -1,17 +1,16 @@
 {
     "manifestVersion": "1.1.0",
-    "name": "extendedsolution1",
+    "name": "SOLUTION_PREFIXextendedsolution",
     "solutionVersion": "1.0.0",
     "solutionType": "component",
     "dependencies": [
         "fmm",
-        "basesolution1"
+        "SOLUTION_PREFIXbasesolution"
     ],
-    "description": "description of your solution",
+    "description": "Solution to demonstrate extending existing entities",
     "contact": "the email for this solution's point of contact",
-    "homepage": "the url for this solution's homepage",
-    "gitRepoUrl": "the url for the git repo holding your solution",
-    "readme": "the url for this solution's readme file",
+    "gitRepoUrl": "https://github.com/geoffhendrey/cop-examples/blob/main/example/entity_extension",
+    "readme": "README.md",
     "objects": [
         {
             "type": "fmm:namespace",

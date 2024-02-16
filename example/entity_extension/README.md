@@ -143,6 +143,11 @@ fsoc melt send -v test-config.yaml
    ``` 
    and pasting the following UQL query:
    ```
-   SINCE -2h fetch attributes('name'), attributes('base_attribute'), attributes('extended_attribute'), metrics('basesolution1:base_metric'),
- metrics('extendedsolution1:extended_metric') from entities('basesolution1:base_entity')
+   SINCE -2h fetch attributes('name'), attributes('base_attribute'), attributes('extended_attribute'), metrics('<your-username>basesolution:base_metric'),
+ metrics('<your-username>extendedsolution:extended_metric') from entities('<your-username>basesolution:base_entity')
    ```
+
+
+
+   SINCE -2h fetch attributes('name'), attributes('vishubasesolution:base_attribute'), attributes('vishuextendedsolution:extended_attribute'), metrics('vishubasesolution:base_metric'),
+ metrics('vishuextendedsolution:extended_metric') from entities('vishubasesolution:base_entity')
