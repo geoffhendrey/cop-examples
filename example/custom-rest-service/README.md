@@ -10,6 +10,14 @@ You will learn:
 1. Subscribe to the solution
 1. Test the solution by invoking the new REST API with your platform credentials.
 
+This tutorial requires the following tools:
+
+- go
+- docker
+- fsoc
+- yq
+- curl
+
 
 Create a simple REST service
 ---------------
@@ -23,10 +31,6 @@ The `service` folder contains the files for the service.
 
 `main.go` contains the minimal code to start a webserver on port 8080. Please remember, it is mandatory to run your http server on port 8080 to deploy on the COP platform.
 
-This step requires:
-
-- go
-- docker
 
 Change to the service directory, build and run the application
 
@@ -49,13 +53,15 @@ Build and run the container image.
 Please remeber to replace <GITHUB-USER-NAME> with your github username.
 
 ```shell
-docker build -t  ghcr.io/ <GITHUB-USER-NAME>/cop-examples/restdemo:latest .
+docker build -t  ghcr.io/<GITHUB-USER-NAME>/cop-examples/restdemo:latest .
 docker run -t  ghcr.io/<GITHUB-USER-NAME>/cop-examples/restdemo:latest
 ```
 
-[Authenticating with container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry)
+Login to github  container respository. 
 
-Login to github  container respository.
+Generate an access token on github.com and substitute the <TOKEN> variable in the following command. Details on how to generate the token can be found here:
+
+[How to Authenticate with the container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry) 
 
 
 ```shell
@@ -145,7 +151,7 @@ For this example, it will create two apis with URLs:
 
 ```shell
 https://<TENANT-HOST-NAME>/rest/<USER-NAME>restdemo/example1/hello
-https://<TENANT-HOST-NAME>/rest/<USER-NAME>prrestdemo/example1/headers
+https://<TENANT-HOST-NAME>/rest/<USER-NAME>restdemo/example1/headers
 
 ````
 
@@ -154,13 +160,22 @@ https://<TENANT-HOST-NAME>/rest/<USER-NAME>prrestdemo/example1/headers
  fsoc solution subscribe <USER-NAME>restdemo
  ```
 
-All custom REST endpoints requires authentication and authorization.
-For authentication, copy the token present in the .fsoc file under your home directory and paste it as <TOKEN> in the below example
+All custom REST endpoints requires authentication and authorization. 
+The following commands uses the authentication token and platform URL from fsoc configuration file. 
 
 Use curl to execute a GET request on the newly deployed service, and it should return a 200 response code with `hello` as the body
 
 ```shell
-curl --location 'https://<HOST>/rest/<SOLUTION-NAME>/<FUNCTION-NAME>/' --header 'Authorization: Bearerer <TOKEN> ' -v
+export TOKEN=`yq '.contexts[0].token' ~/.fsoc`
+export URL=`yq '.contexts[0].url' ~/.fsoc`
+
+curl -v --location "$URL/rest/<USER-NAME>restdemo/example1/hello" --header "Authorization: Bearer $TOKEN"
+```
+ When successful this command should print the following message
+
+
+```shell
 < HTTP/2 200
 hello
+
 ```
