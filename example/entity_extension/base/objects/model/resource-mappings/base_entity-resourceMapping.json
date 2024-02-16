@@ -1,0 +1,21 @@
+{
+    "namespace": {
+        "name": "SOLUTION_PREFIXbasesolution",
+        "version": 1
+    },
+    "kind": "resourceMapping",
+    "name": "base_entity_mapping",
+    "displayName": "Resource mapping configuration for basesolution1:base_entity entity",
+    "entityType": "basesolution1:base_entity",
+    "scopeFilter": "'entity_extension'.equals(getValue(resourceAttributes, 'telemetry.sdk.name').toLowerCase()) && containsAll(resourceAttributes, ['name'])",
+    "mappings": [
+        {
+            "to": "attributes",
+            "from": "resourceAttributes.stream().filter(kv -> !kv.getKey().equals('tags'))"
+        },
+        {
+            "to": "tags",
+            "from": "getResourceAttribute(resourceAttributes, 'tags').getValue().getKvlistValue().getValuesList()"
+        }
+    ]
+}

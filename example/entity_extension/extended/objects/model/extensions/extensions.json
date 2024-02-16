@@ -1,0 +1,25 @@
+{
+    "kind": "extension",
+    "namespace": {
+      "name": "SOLUTION_PREFIXextendedsolution",
+      "version": 1
+    },
+    "name": "SOLUTION_PREFIXextendedsolution.extensions",
+    "displayName": "Example extension of base solution",
+    "description": "Extends base solution to add a metric and an attribute",
+    "extends": {
+      "basesolution1": [
+        "base_entity"
+      ]
+    },
+    "metricTypes": [
+        "SOLUTION_PREFIXextendedsolution:extended_metric"
+    ],
+    "attributeDefinitions": {
+      "attributes": {
+        "SOLUTION_PREFIXextendedsolution:extended_attribute": {
+          "type": "long"
+        }
+      }
+    }
+  }

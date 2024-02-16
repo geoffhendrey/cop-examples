@@ -1,0 +1,31 @@
+{
+    "manifestVersion": "1.1.0",
+    "name": "SOLUTION_PREFIXbasesolution",
+    "solutionVersion": "1.0.0",
+    "solutionType": "component",
+    "dependencies": [
+        "fmm"
+    ],
+    "description": "Solution to demonstrate extending existing entities",
+    "contact": "the email for this solution's point of contact",
+    "gitRepoUrl": "https://github.com/geoffhendrey/cop-examples/blob/main/example/entity_extension",
+    "readme": "README.md",
+    "objects": [
+        {
+            "type": "fmm:namespace",
+            "objectsDir": "objects/model/namespaces"
+        },
+        {
+            "type": "fmm:entity",
+            "objectsDir": "objects/model/entities"
+        },
+        {
+            "type": "fmm:metric",
+            "objectsDir": "objects/model/metrics"
+        },
+        {
+            "type": "fmm:resourceMapping",
+            "objectsDir": "objects/model/resource-mappings"
+        }
+    ]
+}
