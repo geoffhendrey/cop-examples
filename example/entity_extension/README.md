@@ -149,5 +149,5 @@ fsoc melt send -v test-config.yaml
 
 
 
-   SINCE -2h fetch attributes('name'), attributes('vishubasesolution:base_attribute'), attributes('vishuextendedsolution:extended_attribute'), metrics('vishubasesolution:base_metric'),
- metrics('vishuextendedsolution:extended_metric') from entities('vishubasesolution:base_entity')
+   SINCE -2h fetch attributes('name'), attributes('<your-username>asesolution:base_attribute'), attributes('<your-username>extendedsolution:extended_attribute'), metrics('<your-username>basesolution:base_metric'),
+ metrics('<your-username>extendedsolution:extended_metric') from entities('<your-username>solution:base_entity')
