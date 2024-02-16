@@ -1,7 +1,7 @@
 {
-  "name": "awscredentials",
+  "name": "awscreds",
   "identifyingProperties": [
-    "/name"
+    "/id"
   ],
   "allowedLayers": [
     "TENANT"
@@ -27,8 +27,8 @@
         "type": "string",
         "description": "AWS_SECRET_ACCESS_KEY"
       },
-      "password": {
-        "type": "region",
+      "region": {
+        "type": "string",
         "description": "AWS_DEFAULT_REGION"
       }
     },

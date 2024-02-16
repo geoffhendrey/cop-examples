@@ -7,4 +7,4 @@ if [ -z "$SOLUTION_PREFIX" ]; then
   echo "Warning: SOLUTION_PREFIX environment variable is not set."
   exit 1
 fi
-fsoc solution validate --directory ${SOLUTION_PREFIX}secretexample --tag stable -v
+fsoc solution validate --directory ${SOLUTION_PREFIX}awscreds --tag stable -v

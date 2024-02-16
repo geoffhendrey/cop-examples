@@ -7,4 +7,4 @@ if [ -z "$SOLUTION_PREFIX" ]; then
   echo "Warning: SOLUTION_PREFIX environment variable is not set."
   exit 1
 fi
-fsoc solution status ${SOLUTION_PREFIX}secretexample
+fsoc solution status ${SOLUTION_PREFIX}awscreds

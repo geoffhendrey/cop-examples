@@ -10,7 +10,7 @@ fi
 
 # Define the source and destination directories
 source_dir="package"
-destination_dir="${SOLUTION_PREFIX}secretexample"
+destination_dir="${SOLUTION_PREFIX}awscreds"
 
 # Verify the current directory
 expected_folder="knowledge-store-secret"

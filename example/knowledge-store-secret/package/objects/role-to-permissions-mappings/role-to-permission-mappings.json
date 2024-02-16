@@ -1,13 +1,12 @@
 {
-  "name": "awscredentialsRoleMappings",
+  "name": "awscredsRoleMappings",
   "roles": [
     "iam:configManager",
-    "iam:troubleshooter",
     "iam:observer"
   ],
   "permissions": [
     {
-      "id": "SOLUTION_PREFIXsecretexample:awscredentialsPermissions"
+      "id": "SOLUTION_PREFIXawscreds:awscredsPermissions"
     }
   ]
 }

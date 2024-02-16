@@ -3,7 +3,7 @@
 # Get the username of the current user using `whoami`
 username=$(whoami)
 
-# Truncate SOLUTION_PREFIX to 11 characters (if it's longer) so that when combined with "secretexample" length is <= 25 chars
+# Truncate SOLUTION_PREFIX to 11 characters (if it's longer) so that when combined with "awscreds" length is <= 25 chars
 SOLUTION_PREFIX="${username:0:12}"
 
 # Set the SOLUTION_PREFIX environment variable

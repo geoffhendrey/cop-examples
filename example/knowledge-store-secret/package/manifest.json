@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.1.0",
-  "name": "SOLUTION_PREFIXawscredentials",
-  "solutionVersion": "1.0.3",
+  "name": "SOLUTION_PREFIXawscreds",
+  "solutionVersion": "1.0.2",
   "dependencies": ["iam"],
   "description": "aws credentials solution",
   "contact": "-",
@@ -9,7 +9,7 @@
   "gitRepoUrl": "-",
   "readme": "-",
   "types": [
-    "types/awscredentials.json"
+    "types/awscreds.json"
   ],
   "objects":[
     {
