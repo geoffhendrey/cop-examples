@@ -21,9 +21,7 @@ which the weather data will be collected will be stored in the [Knowledge Store]
 
 For that, the Meteodata solution defines a type `meteodata:meteoLocation`
 
-```json
-# package/types/meteo_location.json
-```
+https://github.com/geoffhendrey/cop-examples/blob/main/example/meteodata/package/types/meteo_location.json
 
 `meteoLocation` type is pretty simple, it defines `name`, `latitude` and `longitude`,
 while all the attributes are required.
@@ -47,9 +45,7 @@ where `prague.json` would contain
 Each configured location is represented by an [entity](https://developer.cisco.com/docs/cisco-observability-platform/#!entities)
 defined as
 
-```json
-# package/objects/model/entities/location.json
-```
+https://github.com/geoffhendrey/cop-examples/blob/main/example/meteodata/package/objects/model/entities/location.json
 
 The entity itself copies the knowledge object referenced above, adds elevation and defines
 list of [metric](https://developer.cisco.com/docs/cisco-observability-platform/#!metrics-model) types to be reported to that particular entity.
@@ -167,15 +163,11 @@ be logged and also be able to turn it off.
 
 For that, another Knowledge type has been introduced: `meteodata:meteoConfig`
 
-```json
-# package/types/meteo_config.json
-```
+https://github.com/geoffhendrey/cop-examples/blob/main/example/meteodata/package/types/meteo_config.json
 
 This is designed to have only a single object, defined as 
 
-```json
-# package/meteodata/objects/meteodata/meteoConfig/meteoConfig.json
-```
+https://github.com/geoffhendrey/cop-examples/blob/main/example/meteodata/package/objects/meteodata/meteoConfig/meteoConfig.json
 
 which also sets the `logLevel` property to `OFF`, meaning logging is not forwarded to the platform by default.
 
