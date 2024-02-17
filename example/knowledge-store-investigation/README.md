@@ -348,6 +348,10 @@ Deploying solution ghendreymalwareexample version 1.0.0 with tag stable
    • Current token is no longer valid; trying to refresh
 Successfully uploaded solution ghendreymalwareexample version 1.0.0 with tag stable.
 ```
+Subscribe to your solution
+```shell
+fsoc solution subscribe <USERNAME>malwareexample
+```
 Check the status of your subscription using the included `status.sh`:
 ```shell
 GHENDREY-M-NWK4:knowledge-store-investigation ghendrey$ ./status.sh
