@@ -1,6 +1,6 @@
 {
     "name": "bank",
-    "image": "ghcr.io/p13r/cop-examples/bank:latest",
+    "image": "ghcr.io/p13r/cop-examples/bank:v0.0.2",
     "envvars": {
         "GATEWAY_URL": "http://zodiac-queues-gateway.zodiac.svc.cluster.local:8080"
     }
