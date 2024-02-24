@@ -1,0 +1,29 @@
+{
+    "manifestVersion": "1.0.0",
+    "name": "s2sqdemo",
+    "solutionVersion": "1.0.5",
+    "dependencies": ["zodiac"],
+    "description": "Service to Service Messaging demo",
+    "contact": "<your-email-here>",
+    "gitRepoUrl": "-",
+    "readme" : "readme.md",
+    "types" : [],
+    "objects": [
+        {
+            "type": "zodiac:function",
+            "objectsDir": "objects/functions"
+        },
+        {
+            "type": "contracts:cloudevent",
+            "objectsDir": "objects/contracts/cloudevents"
+        },
+        {
+            "type": "zodiac:event",
+            "objectsDir": "objects/channels"
+        },
+        {
+            "type": "zodiac:eventSubscription",
+            "objectsDir": "objects/subscriptions"
+        }
+    ]
+  }

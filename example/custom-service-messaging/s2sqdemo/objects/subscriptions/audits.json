@@ -1,0 +1,4 @@
+{
+    "eventType": "s2sqdemo:audit",
+    "subscriberFQID": "zodiac:function/s2sqdemo:client"
+}
