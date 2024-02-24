@@ -1,9 +1,9 @@
 {
     "manifestVersion": "1.0.0",
-    "name": "<USER-NAME>restdemo",
-    "solutionVersion": "1.0.0",
+    "name": "s2sqdemo",
+    "solutionVersion": "1.0.5",
     "dependencies": ["zodiac"],
-    "description": "Simple REST example on CO platform",
+    "description": "Service to Service Messaging demo",
     "contact": "<your-email-here>",
     "gitRepoUrl": "-",
     "readme" : "readme.md",
@@ -14,16 +14,16 @@
             "objectsDir": "objects/functions"
         },
         {
-            "type": "zodiac:function",
-            "objectsDir": "objects/functions"
+            "type": "contracts:cloudevent",
+            "objectsDir": "objects/contracts/cloudevents"
         },
         {
-            "type": "zodiac:function",
-            "objectsDir": "objects/functions"
+            "type": "zodiac:event",
+            "objectsDir": "objects/channels"
         },
         {
-            "type": "zodiac:function",
-            "objectsDir": "objects/functions"
+            "type": "zodiac:eventSubscription",
+            "objectsDir": "objects/subscriptions"
         }
     ]
   }
