@@ -25,7 +25,7 @@ testCases:
               violation_status: OPEN
               violation_start_time: 1706904360000
         out: true
-      - name: event type not matched
+      - name: entity type not matched
         in:
           data:
             entities:
@@ -34,14 +34,14 @@ testCases:
           timestamp: 1706911250000
           type: alerting:healthrule.violation
         out: false
-      - name: entity type not matched
+      - name: event type not matched
         in:
           data:
             entities:
-              - type: k8s:namespace
+              - type: k8s:deployment
                 id: nRIoEU8xOVmMOr1bf1z7vA
             timestamp: 1706911250000
-            type: alerting:healthrule.violation
+            type: alerting:som_other_event
         out: false
   - name: functions.createMeasurement
     function: ../../${ workflow.functions[name="createMeasurement"].operation }
