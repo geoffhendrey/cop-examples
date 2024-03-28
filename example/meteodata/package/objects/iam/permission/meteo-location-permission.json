@@ -34,6 +34,38 @@
             "resource": {
                 "type": "SOLUTION_PREFIXmeteodata:meteoLocation"
             }
+        },
+        {
+            "action": {
+                "classification": "READ"
+            },
+            "resource": {
+                "type": "SOLUTION_PREFIXmeteodata:meteoConfig"
+            }
+        },
+        {
+            "action": {
+                "classification": "CREATE"
+            },
+            "resource": {
+                "type": "SOLUTION_PREFIXmeteodata:meteoConfig"
+            }
+        },
+        {
+            "action": {
+                "classification": "UPDATE"
+            },
+            "resource": {
+                "type": "SOLUTION_PREFIXmeteodata:meteoConfig"
+            }
+        },
+        {
+            "action": {
+                "classification": "DELETE"
+            },
+            "resource": {
+                "type": "SOLUTION_PREFIXmeteodata:meteoConfig"
+            }
         }
     ]
 }

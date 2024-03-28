@@ -1,0 +1,28 @@
+{
+    "namespace": {
+        "name": "SOLUTION_PREFIXmeteodata",
+        "version": 1
+    },
+    "kind": "entity",
+    "name": "service",
+    "displayName": "service",
+    "attributeDefinitions": {
+        "required": [
+            "meteodata.name"
+        ],
+        "optimized": [],
+        "attributes": {
+            "meteodata.name": {
+                "type": "string",
+                "description": "mapping attribute of a meteo data entity used for logging"
+            }
+        }
+    },
+    "lifecycleConfiguration": {
+        "purgeTtlInMinutes": 4200,
+        "retentionTtlInMinutes": 1440
+    },
+    "eventTypes" : [
+        "logs:generic_record"
+    ]
+}

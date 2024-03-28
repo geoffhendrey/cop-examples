@@ -1,18 +1,19 @@
 {
     "manifestVersion": "1.1.0",
     "name": "SOLUTION_PREFIXmeteodata",
-    "solutionVersion": "0.0.38",
+    "solutionVersion": "0.1.0",
     "solutionType": "component",
     "dependencies": [
         "fmm",
         "zodiac",
-        "iam"
+        "iam",
+        "logs"
     ],
-    "description": "Description for retrieving weather data",
-    "contact": "the email for this solution's point of contact",
-    "homepage": "the url for this solution's homepage",
-    "gitRepoUrl": "the url for the git repo holding your solution",
-    "readme": "the url for this solution's readme file",
+    "description": "OpenMeteo data model and collector",
+    "contact": "pbucek@cisco.com",
+    "homepage": "https://github.com/geoffhendrey/cop-examples/tree/main/example/meteodata",
+    "gitRepoUrl": "https://github.com/geoffhendrey/cop-examples/tree/main/example/meteodata",
+    "readme": "https://github.com/geoffhendrey/cop-examples/blob/main/example/meteodata/README.md",
     "objects": [
         {
             "type": "fmm:namespace",
@@ -49,9 +50,14 @@
         {
             "type": "iam:RoleToPermissionMapping",
             "objectsDir": "objects/iam/roleToPermissionMapping"
+        },
+        {
+            "type": "SOLUTION_PREFIXmeteodata:meteoConfig",
+            "objectsDir": "objects/meteodata/meteoConfig"
         }
     ],
     "types": [
-        "types/meteo_location.json"
+        "types/meteo_location.json",
+        "types/meteo_config.json"
     ]
 }
