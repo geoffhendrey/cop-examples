@@ -365,4 +365,5 @@ That’s it!
    SINCE now - 1h FETCH metrics('sampleworkflow:healthrule.violation.count') {timestamp, value} FROM entities(k8s:workload, apm:service)
    ```
    Note that you need to have either k8s or apm monitoring enabled, and at least one health rule violation needs to occur since solution subscription
+   
 10. Alternatively, view the metrics by navigating to the metric explorer at *https://<your tenant>.observe.appdynamics.com/explore/cco/metric-explorer*
