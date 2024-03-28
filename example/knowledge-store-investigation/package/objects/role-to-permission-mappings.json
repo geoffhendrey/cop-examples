@@ -1,4 +1,5 @@
 {
+  "solutionId": "@INSTALL !${$sys.solutionId}",
   "name": "malwareRoleMappings",
   "roles": [
     "iam:configManager",
@@ -7,7 +8,7 @@
   ],
   "permissions": [
     {
-      "id": "SOLUTION_PREFIXmalwareexample:readMalwareInvestigation"
+      "id": "/${solutionId & ':readMalwareInvestigation'}"
     }
   ]
 }
