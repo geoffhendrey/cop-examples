@@ -17,11 +17,16 @@ if [ -z "$fsoc_path" ]; then
 fi
 
 # Get the fsoc version
-fsoc_version=$(fsoc version 2>&1 | awk '{print $3}')
+fsoc_version_json=$(fsoc version -o json)
+fsoc_version=$(echo $fsoc_version_json | jq -r '.version')
+fsoc_major=$(echo $fsoc_version_json | jq -r '.major')
+fsoc_minor=$(echo $fsoc_version_json | jq -r '.minor')
 
-# Check if the version is at least 0.62.0
-if [[ "$fsoc_version" < "0.62.0" ]]; then
-  echo "fsoc version $fsoc_version is not supported. Please install version 0.62.0 or higher."
+# Error out if fsoc doesn't meet the minimum required version
+fsoc_req_major=0
+fsoc_req_minor=620
+if (( fsoc_major < fsoc_req_major || (fsoc_major == fsoc_req_major && fsoc_minor < fsoc_req_minor) )); then
+  echo "fsoc version $fsoc_version is not supported. Please install version $fsoc_req_major.$fsoc_req_minor.0 or higher from https://github/cisco-open/fsoc."
   exit 1
 fi
 
