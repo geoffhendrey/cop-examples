@@ -1,0 +1,4 @@
+{
+    "eventType": "s2sqdemo:txn",
+    "subscriberFQID": "zodiac:function/s2sqdemo:bank"
+}

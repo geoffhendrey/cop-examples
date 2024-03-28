@@ -1,0 +1,34 @@
+{
+  "manifestVersion": "1.1.0",
+  "name": "sampleworkflow",
+  "solutionVersion": "1.0.17",
+  "dependencies": [
+    "fmm",
+    "codex",
+    "k8s",
+    "apm"
+  ],
+  "description": "Health violation counter",
+  "contact": "abokhand@cisco.com",
+  "homepage": "https://github.com/geoffhendrey/cop-examples/tree/codex/example/codex-workflow",
+  "gitRepoUrl": "https://github.com/geoffhendrey/cop-examples/tree/codex/example/codex-workflow",
+  "readme": "https://github.com/geoffhendrey/cop-examples/tree/codex/example/codex-workflow/readme.md",
+  "objects": [
+    {
+      "type": "fmm:extension",
+      "objectsFile": "objects/fmm/extension/extension.json"
+    },
+    {
+      "type": "fmm:metric",
+      "objectsFile": "objects/fmm/metric/count.json"
+    },
+    {
+      "type": "fmm:namespace",
+      "objectsFile": "objects/fmm/namespace/namespace.json"
+    },
+    {
+      "type": "codex:workflow",
+      "objectsFile": "objects/codex/workflow/workflow.sw.json"
+    }
+  ]
+}

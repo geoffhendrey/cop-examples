@@ -1,0 +1,37 @@
+{
+  "name": "awscreds",
+  "identifyingProperties": [
+    "/id"
+  ],
+  "allowedLayers": [
+    "TENANT"
+  ],
+  "secureProperties": [
+    "$.key"
+  ],
+  "jsonSchema": {
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "AWS Credentials Schema",
+    "description": "This schema defines aws credentials, storing key securely.",
+    "required": [
+      "id",
+      "key"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "AWS_ACCESS_KEY_ID"
+      },
+      "key": {
+        "type": "string",
+        "description": "AWS_SECRET_ACCESS_KEY"
+      },
+      "region": {
+        "type": "string",
+        "description": "AWS_DEFAULT_REGION"
+      }
+    },
+    "additionalProperties": false
+  }
+}

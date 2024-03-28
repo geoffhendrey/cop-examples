@@ -1,0 +1,33 @@
+[
+  {
+    "name": "awscredsPermissions",
+    "displayName": "SOLUTION_PREFIXawscreds:awscredsPermissions",
+    "description": "AWS Credentials Permissions",
+    "actionAndResources": [
+      {
+        "action": {
+          "classification": "READ"
+        },
+        "resource": {
+          "type": "SOLUTION_PREFIXawscreds:awscreds"
+        }
+      },
+      {
+        "action": {
+          "classification": "CREATE"
+        },
+        "resource": {
+          "type": "SOLUTION_PREFIXawscreds:awscreds"
+        }
+      },
+      {
+        "action": {
+          "classification": "UPDATE"
+        },
+        "resource": {
+          "type": "SOLUTION_PREFIXawscreds:awscreds"
+        }
+      }
+    ]
+  }
+]

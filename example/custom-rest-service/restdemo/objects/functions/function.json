@@ -1,0 +1,4 @@
+{
+    "name": "example1",
+    "image": "ghcr.io/p13r/cop-examples/restdemo:latest"
+}

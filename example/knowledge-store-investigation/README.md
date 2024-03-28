@@ -348,6 +348,10 @@ Deploying solution ghendreymalwareexample version 1.0.0 with tag stable
    • Current token is no longer valid; trying to refresh
 Successfully uploaded solution ghendreymalwareexample version 1.0.0 with tag stable.
 ```
+Subscribe to your solution
+```shell
+fsoc solution subscribe <USERNAME>malwareexample
+```
 Check the status of your subscription using the included `status.sh`:
 ```shell
 GHENDREY-M-NWK4:knowledge-store-investigation ghendrey$ ./status.sh
@@ -534,7 +538,7 @@ targetObjectId: null
 Note, if you want to query all existing investigations, lust leave off the `--objectID` (as usual, USERNAME is your username).
 This query returns a page of objects.
 ```shell
-fsoc  knowledge get --layer-type=SOLUTION  --type=USERNAMEalwareexample:investigation  --layer-id=USERNAMEmalwareexample
+fsoc  knowledge get --layer-type=SOLUTION  --type=USERNAMEmalwareexample:investigation  --layer-id=USERNAMEmalwareexample
 ```
 The Cisco Observability Platform contains several built-in roles. This example solution grants some of those
 roles with permission to access the malware investigation Type. The solution includes `permissions.json` and

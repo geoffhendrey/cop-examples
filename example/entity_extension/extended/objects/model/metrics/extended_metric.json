@@ -1,0 +1,15 @@
+{
+    "namespace": {
+        "name": "SOLUTION_PREFIXextendedsolution",
+        "version": 1
+    },
+    "kind": "metric",
+    "name": "extended_metric",
+    "displayName": "extended_metric",
+    "category": "current",
+    "contentType": "gauge",
+    "aggregationTemporality": "unspecified",
+    "isMonotonic": false,
+    "type": "long",
+    "unit": "{extended_metric}"
+}

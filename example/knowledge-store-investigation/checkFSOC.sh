@@ -24,7 +24,7 @@ fsoc_minor=$(echo $fsoc_version_json | jq -r '.minor')
 
 # Error out if fsoc doesn't meet the minimum required version
 fsoc_req_major=0
-fsoc_req_minor=590
+fsoc_req_minor=620
 if (( fsoc_major < fsoc_req_major || (fsoc_major == fsoc_req_major && fsoc_minor < fsoc_req_minor) )); then
   echo "fsoc version $fsoc_version is not supported. Please install version $fsoc_req_major.$fsoc_req_minor.0 or higher from https://github/cisco-open/fsoc."
   exit 1

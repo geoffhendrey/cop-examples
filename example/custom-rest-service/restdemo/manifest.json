@@ -1,0 +1,25 @@
+{
+    "manifestVersion": "1.0.0",
+    "name": "pr1restdemo",
+    "solutionVersion": "1.0.0",
+    "dependencies": ["zodiac"],
+    "description": "Simple REST example on CO platform",
+    "contact": "<your-email-here>",
+    "gitRepoUrl": "-",
+    "readme" : "readme.md",
+    "types" : [],
+    "objects": [
+        {
+            "type": "zodiac:function",
+            "objectsDir": "objects/functions"
+        },
+        {
+            "type": "iam:Permission",
+            "objectsFile": "objects/iam/permissions.json"
+        },
+        {
+            "type": "iam:RoleToPermissionMapping",
+            "objectsFile": "objects/iam/role-to-permission-mappings.json"
+        }
+    ]
+  }

@@ -1,0 +1,16 @@
+[
+    {
+      "name": "restdemo",
+      "roles": [
+        "iam:observer",
+        "iam:troubleshooter",
+        "iam:configManager",
+        "iam:tenantAdmin"
+      ],
+      "permissions": [
+        {
+          "id": "<USER-NAME>restdemo:rootPermissions"
+        }
+      ]
+    }
+  ]

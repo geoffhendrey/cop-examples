@@ -1,0 +1,8 @@
+{
+    "name": "SOLUTION_PREFIXawscreds-func",
+    "image": "registry.hub.docker.com/zhirafovod/aws-service-demo:0.0.5",
+    "scaleBounds": {
+        "lower": 1,
+        "upper": 1
+    }
+}

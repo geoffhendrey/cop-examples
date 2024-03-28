@@ -9,6 +9,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+example/custom-rest-service/service/restdemo
 
 # Ignore npm/yarn lock files
 package-lock.json

@@ -1,0 +1,15 @@
+[
+    {
+      "name": "rootPermissions",
+      "displayName": "example1:helloPermissions",
+      "description": "root api",
+      "actionAndResources": [{
+        "action": {
+          "method": "GET",
+          "pathPattern": "/example1/hello/",
+          "classification": "READ",
+          "type": "HttpAction"
+        }
+      }]
+    }
+  ]
