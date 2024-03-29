@@ -1,0 +1,33 @@
+{
+  "manifestVersion": "1.1.0",
+  "name": "SOLUTION_PREFIXmalwareexample",
+  "solutionVersion": "1.0.1",
+  "dependencies": ["iam"],
+  "description": "network intrusion investigation",
+  "contact": "-",
+  "homepage": "-",
+  "gitRepoUrl": "-",
+  "readme": "-",
+  "types": [
+    "types/investigation.json",
+    "types/system.json"
+  ],
+  "objects":[
+    {
+      "type": "SOLUTION_PREFIXmalwareexample:system",
+      "objectsFile": "objects/defaultSystem.json"
+    },
+    {
+      "type": "SOLUTION_PREFIXmalwareexample:investigation",
+      "objectsFile": "objects/malwareInvestigationDefaults.json"
+    },
+    {
+      "type": "iam:Permission",
+      "objectsFile": "objects/permissions.json"
+    },
+    {
+      "type": "iam:RoleToPermissionMapping",
+      "objectsFile": "objects/role-to-permission-mappings.json"
+    }
+  ]
+}
