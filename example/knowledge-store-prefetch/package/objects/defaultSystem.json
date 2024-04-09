@@ -1,0 +1,13 @@
+{
+    "name": "default",
+    "machineId": "AA-00-01-04-05-BB",
+    "usersAllowed": ["admin", "observer"],
+    "lastLogin": {
+        "user": "observer",
+        "lastLoginTime": "2023-12-15T10:00:00Z"
+    },
+    "resources": {
+        "memory": "8GB",
+        "cpu": "2.8GHz,4-core"
+    }
+}

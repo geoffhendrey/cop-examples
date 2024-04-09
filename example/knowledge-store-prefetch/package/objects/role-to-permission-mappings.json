@@ -1,0 +1,13 @@
+{
+  "name": "malwareRoleMappings",
+  "roles": [
+    "iam:configManager",
+    "iam:troubleshooter",
+    "iam:observer"
+  ],
+  "permissions": [
+    {
+      "id": "SOLUTION_PREFIXmalwareexample:readMalwareInvestigation"
+    }
+  ]
+}

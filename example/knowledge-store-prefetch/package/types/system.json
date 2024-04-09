@@ -1,0 +1,56 @@
+{
+    "name": "system",
+    "allowedLayers": [
+        "SOLUTION",
+        "TENANT"
+    ],
+    "identifyingProperties": [
+        "/name",
+        "/machineId"
+    ],
+    "jsonSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string"
+            },
+            "machineId": {
+                "type": "string"
+            },
+            "usersAllowed": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "lastLogin": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "string"
+                    },
+                    "lastLoginTime": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "resources": {
+                "type": "object",
+                "properties": {
+                    "memory": {
+                        "type": "string"
+                    },
+                    "cpu": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "required": [
+            "name",
+            "machineId"
+        ]
+    }
+}
